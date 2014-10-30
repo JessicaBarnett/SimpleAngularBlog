@@ -1,5 +1,7 @@
 // (function(){
 
+//"use strict";  //what's an octal literal?
+
 //Module
 var blogApp = angular.module('blogApp', []);
 
@@ -32,7 +34,7 @@ blogApp.factory('BlogData', function(){
 			"body": "Stop Gratin' Limburgher!  You stink!"
 		}]
 	},{
-		"title": "Everything's Gouda, but it Could Always be Chedder!",
+		"title": "Everything's Gouda, but it Could Always be Cheddar!",
 		"author": "Gouda",
 		"date": new Date(2014, 10, 01),
 		"tags": ["Gouda", "Cheddar", "Cheese"],
@@ -85,9 +87,18 @@ blogApp.factory('BlogData', function(){
 	return blogData;
 });
 
+blogApp.filter('date', function($filter){
+	return function(dateObject){
+		var retVal = (dateObject.getMonth()+1)+"/"+dateObject.getDate()+"/"+dateObject.getFullYear();
+		console.log(retVal);
+		return (dateObject.getMonth()+1)+"/"+dateObject.getDate()+"/"+dateObject.getFullYear();
+	};
+});
+
 //main controller
 blogApp.controller("BlogCtrl", function($scope, BlogData){
 	$scope.blogData = BlogData;
+	$scope.testDate = new Date(1987, 10, 30);
 	console.log($scope.blogData); //controller def has blogData!!
 });
 
@@ -100,9 +111,10 @@ blogApp.directive("post", function(){
 			post: "="
 		},
 		link: function(scope, element, attrs){
-			console.dir(scope.post);
+			console.dir(scope)
 		}
 	}
 });
+
 
 // })();

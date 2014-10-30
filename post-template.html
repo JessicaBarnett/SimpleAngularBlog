@@ -1,14 +1,13 @@
 <section class="details">
-	<time datetime="2014-10-30"> 10/30/2014</time>
+	<time datetime="2014-10-30"> {{post.date | date}}</time>
 	<ul class="tags">
-		<li ng-repeat="tag in post.tags"><a href="#">{{tag}}, </a>   </li>
+		<li ng-repeat="tag in post.tags"><a href="#">{{tag}}, </a></li>
 	</ul>
-	<a href="#"> 7 comments </a>
+	<a href="#"> {{post.comments.length}} comments </a>
 </section>
 <section class="content">	
 	<h1>{{post.title}}</h1>
 	<p class="byline">{{post.author}}</p>
-	<p>"{{post.body}}"</p>
+	<p>"{{post.body | limitTo:200}}..."</p>
 	<a href="#">more</a>
-<!-- 	{{post}} -->
 </section>
