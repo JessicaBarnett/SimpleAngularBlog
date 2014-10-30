@@ -1,0 +1,14 @@
+<section class="details">
+	<time datetime="2014-10-30"> 10/30/2014</time>
+	<ul class="tags">
+		<li ng-repeat="tag in post.tags"><a href="#">{{tag}}, </a>   </li>
+	</ul>
+	<a href="#"> 7 comments </a>
+</section>
+<section class="content">	
+	<h1>{{post.title}}</h1>
+	<p class="byline">{{post.author}}</p>
+	<p>"{{post.body}}"</p>
+	<a href="#">more</a>
+<!-- 	{{post}} -->
+</section>

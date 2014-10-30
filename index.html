@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<html lang="en">  
+	<head>
+		<title>A Simple Blog made with Angular.js</title>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" type="text/css" href="stylesheets/reset.css">
+		<link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+	</head>
+	<body ng-app="blogApp">
+		<script type="text/javascript" src="js/angular.js"></script>
+		<script type="text/javascript" src="js/app.js"></script>
+
+		<header>
+			<img id="logo" src="images/green_smiley.png">
+			<nav>
+				<ul>
+					<li><a href="#"></a>Home</li>
+					<li><a href="#"></a>About</li>
+					<li><a href="#"></a>Search</li>
+				</ul>
+			</nav>
+		</header>
+
+		<div id="blog" ng-controller="BlogCtrl">
+			<post class="postWrap clear" ng-repeat="post in blogData.posts" post="post" > 
+			</post>
+		</div>
+
+		<footer>
+			<img class="social" src="images/social/facebook.svg"/>
+			<img class="social" src="images/social/twitter.svg"/>
+			<img class="social" src="images/social/pinterest.svg"/>
+			<img class="social" src="images/social/vimeo.svg"/>
+		</footer>
+
+	</body>
+</html>
