@@ -13,26 +13,29 @@
 
 		<header>
 			<img id="logo" src="images/green_smiley.png">
-			<nav>
-				<ul>
-					<li><a href="#"></a>Home</li>
-					<li><a href="#"></a>About</li>
-					<li><a href="#"></a>Search</li>
-				</ul>
-			</nav>
+			<section id="titleAndNav">
+				<h1>A Simple Blog</h1>
+				<nav>
+					<ul>
+						<li><a href="#">Home</a></li>
+						<li><a href="#">About</a></li>
+						<li><a href="#">Search</a></li>
+					</ul>
+				</nav>
+			</section>
 		</header>
 
 		<div id="blog" ng-controller="BlogCtrl">
 
-			<post class="postWrap clear" ng-repeat="post in blogData.posts" post="post" > 
+			<post class="postWrap clear" ng-repeat="post in blogData.posts" post="post"> 
 			</post>
 		</div>
 
 		<footer>
-			<img class="social" src="images/social/facebook.svg"/>
-			<img class="social" src="images/social/twitter.svg"/>
-			<img class="social" src="images/social/pinterest.svg"/>
-			<img class="social" src="images/social/vimeo.svg"/>
+			<img class="social" src="images/social/facebook.svg" alt="go to facebook"/>
+			<img class="social" src="images/social/twitter.svg" alt="go to twitter"/>
+			<img class="social" src="images/social/pinterest.svg" alt="go to pinterest"/>
+			<img class="social" src="images/social/vimeo.svg" alt="go to vimeo"/>
 		</footer>
 
 	</body>
