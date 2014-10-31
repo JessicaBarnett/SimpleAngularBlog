@@ -1,3 +1,5 @@
+/***** General ******/
+
 *{
 	box-sizing: border-box;
 }
@@ -21,12 +23,13 @@ header, footer{
 }
 
 #blog {
-	background-color: rgba(255, 255, 255, .8);
+	background-color: rgba(255, 255, 255, .4);
 	width: 80%;
 	margin: 0 auto;
+	padding: .5rem 1.5rem;
 }
 
-//Font sizes
+/***** Font Sizes ******/
 
 body {
 	font-size: 100%;
@@ -52,7 +55,11 @@ p, a{
 	font-size: 1.8rem;
 }
 
-//header
+footer p{
+	font-size: 1.3rem;
+}
+
+/***** Header ******/
 
 header {
 	width: 100%;
@@ -79,7 +86,7 @@ header {
 }
 
 
-//Post Styles!!
+/***** Posts ******/
 
 //post fonts
 .details a, .details time{
@@ -90,12 +97,13 @@ header {
 
 post{ //post container
 	display: block;
-	margin-top: 3rem;
+	margin: 2rem 0;
 }
 
 //details and content sections
 post section{
 	float: left;
+	margin: 2%
 }
 
 section.details{
@@ -103,7 +111,7 @@ section.details{
 }
 
 section.content{
-	width: 80%;
+	width: 70%;
 }
 
 .tags li {
@@ -112,5 +120,18 @@ section.content{
 
 h2, p {
 	margin-bottom: 1rem;
+}
+
+
+
+/***** Footer ******/
+
+footer{
+	margin-top: 2rem;
+	text-align: center;
+}
+
+img.social {
+	margin: .5rem;
 }
 
