@@ -1,6 +1,5 @@
 // (function(){
 
-//"use strict";  //what's an octal literal?
 
 //Module
 var blogApp = angular.module('blogApp', []);
@@ -9,6 +8,13 @@ var blogApp = angular.module('blogApp', []);
 //factory for blog post data
 blogApp.factory('BlogData', function(){
 	var blogData = {};
+	// blogData.posts = angular.fromJson($http.get("blogData.json"), function(){return blogData;});
+
+	// $.get("blogData.json", function(){
+	// 	console.log(blogData);
+	// 	blogData.posts = blogData;
+	// });
+
 	blogData.posts = [{
 		"title": "It's Cheesey, but It'll Make You Feel Grate!",
 		"author": "Emmental",
@@ -18,20 +24,26 @@ blogApp.factory('BlogData', function(){
 		"comments": [{
 			"author": "Ricotta",
 			"email": "cheese@please.com",
-			"website": "http://google.com",
-			"body": "I love Cheese Jokes!!" 
+			"website": "https://www.google.com/search?q=ricotta",
+			"body": "I love Cheese Jokes!!",
+			"image": "../images/cheese_icon.svg",
+			"date": new Date(2014, 10, 12)
 		}, 
 		{
 			"author": "Limburgher",
 			"email": "cheese@please.com",
-			"website": "http://google.com",
-			"body": "This article is stupid."
+			"website": "https://www.google.com/search?q=limburgher",
+			"body": "This article is stupid.",
+			"image": "../images/cheese_icon.svg",
+			"date": new Date(2014, 10, 12)
 		},
 		{
 			"author": "Swiss",
 			"email": "cheese@please.com",
-			"website": "http://google.com",
-			"body": "Stop Gratin' Limburgher!  You stink!"
+			"website": "https://www.google.com/search?q=swiss",
+			"body": "Stop Gratin' Limburgher!  You stink!",
+			"image": "../images/cheese_icon.svg",
+			"date": new Date(2014, 10, 12)
 		}]
 	},{
 		"title": "Everything's Gouda, but it Could Always be Cheddar!",
@@ -43,20 +55,26 @@ blogApp.factory('BlogData', function(){
 		[{
 			"author": "Mozzarella",
 			"email": "cheese@please.com",
-			"website": "http://google.com",
-			"body": "Oh Que... So?"
+			"website": "https://www.google.com/search?q=mozzarella",
+			"body": "Oh Que... So?",
+			"image": "../images/cheese_icon.svg",
+			"date": new Date(2014, 10, 12)
 		}, 
 		{
 			"author": "Pepper Jack",
 			"email": "cheese@please.com",
-			"website": "http://google.com",
-			"body": "This Blog Roqueforts!"
+			"website": "https://www.google.com/search?q=pepper%20jack",
+			"body": "This Blog Roqueforts!",
+			"image": "../images/cheese_icon.svg",
+			"date": new Date(2014, 10, 12)
 		},
 		{
 			"author": "Montery Jack",
 			"email": "cheese@please.com",
-			"website": "",
-			"body": "Holy Macaroni!!"
+			"website": "https://www.google.com/search?q=montery%20jack",
+			"body": "Holy Macaroni!!",
+			"image": "../images/cheese_icon.svg",
+			"date": new Date(2014, 10, 12)
 		}]
 	},{
 		"title": "The Last Slice: Forever Provolone",
@@ -68,30 +86,44 @@ blogApp.factory('BlogData', function(){
 		[{
 			"author": "Stilton",
 			"email": "cheese@please.com",
-			"website": "http://google.com",
-			"body": "Oh, don't be so bleu!"
+			"website": "https://www.google.com/search?q=stilton",
+			"body": "Oh, don't be so bleu!",
+			"image": "../images/cheese_icon.svg",
+			"date": new Date(2014, 10, 12)
 		}, 
 		{
 			"author": "Gruyere",
 			"email": "cheese@please.com",
-			"website": "http://google.com",
-			"body": "When in doubt, pray to Cheesus." 
+			"website": "https://www.google.com/search?q=gruyere",
+			"body": "When in doubt, pray to Cheesus.", 
+			"image": "../images/cheese_icon.svg",
+			"date": new Date(2014, 10, 12)
 		},
 		{
 			"author": "Roquefort",
 			"email": "cheese@please.com",
-			"website": "",
-			"body": "We have to take care of our babybels Caerphilly!"
+			"website": "https://www.google.com/search?q=roquefort",
+			"body": "We have to take care of our babybels Caerphilly!",
+			"image": "../images/cheese_icon.svg",
+			"date": new Date(2014, 10, 12)
 		}]
 	}];
+
 	return blogData;
 });
 
+//custom date fiter
 blogApp.filter('date', function($filter){
 	return function(dateObject){
-		var retVal = (dateObject.getMonth()+1)+"/"+dateObject.getDate()+"/"+dateObject.getFullYear();
-		console.log(retVal);
 		return (dateObject.getMonth()+1)+"/"+dateObject.getDate()+"/"+dateObject.getFullYear();
+	};
+});
+
+//filter to convert post titles into url strings
+blogApp.filter('toUrl', function($filter){
+	return function(postTitle){
+		postTitle = postTitle.replace(/ /g, "_").replace(/[\.,-\/#!$%\^&\*;:{}=\-`~()']/g, "");
+		return postTitle.toLowerCase();
 	};
 });
 
@@ -100,16 +132,55 @@ blogApp.controller("BlogCtrl", function($scope, BlogData){
 	$scope.blogData = BlogData;
 });
 
+
+//title directive
+blogApp.directive("pageTitle", function(){
+	return {
+		restrict: "A",
+		templateUrl: '../templates/header-template.html',
+		scope: {
+			path: "@"
+		}
+	}
+});
+
 //post directive
 blogApp.directive("post", function(){
 	return {
 		restrict: "E",
-		templateUrl: 'post-template.html',
+		templateUrl: '../templates/post-snippet-template.html',
 		scope: { //isolate scope
 			post: "="
 		},
 		link: function(scope, element, attrs){
-			console.dir(scope)
+			// console.dir(scope)
+		}
+	}
+});
+
+//post directive
+blogApp.directive("fullPost", function(){
+	return {
+		restrict: "E",
+		templateUrl: '../templates/post-page-template.html',
+		scope: { //isolate scope
+			post: "="
+		},
+		link: function(scope, element, attrs){
+			console.dir(scope);
+		}
+	}
+});
+
+//comment directive
+blogApp.directive("comment", function(){
+	return {
+		restrict: "E",
+		templateUrl: '../templates/comment-template.html',
+		scope: { //isolate scope
+			comment: "="
+		},
+		link: function(scope, element, attrs){
 		}
 	}
 });

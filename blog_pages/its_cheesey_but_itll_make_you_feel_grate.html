@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html lang="en">  
+	<head>
+		<title>A Simple Blog made with Angular.js</title>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" type="text/css" href="../stylesheets/reset.css">
+		<link rel="stylesheet" type="text/css" href="../stylesheets/style.css">
+	</head>
+	<body ng-app="blogApp">
+		<script type="text/javascript" src="../js/angular.js"></script>
+		<script type="text/javascript" src="../js/app.js"></script>
+
+		<header page-title path="../"></header>
+
+		<div id="blog" ng-controller="BlogCtrl">
+			<full-post class="clear" post="blogData.posts[0]"> 
+			</full-post>
+		</div>
+
+		<footer>
+			<p> This very simple blog was created by Jessica Barnett, with the intent to learn Angular.js </p>
+			<section id="social">
+				<a href="#"><img class="social" src="../images/social/facebook.svg" alt="go to facebook"/></a>
+				<a href="#"><img class="social" src="../images/social/twitter.svg" alt="go to twitter"/></a>
+				<a href="#"><img class="social" src="../images/social/pinterest.svg" alt="go to pinterest"/></a>
+				<a href="#"><img class="social" src="../images/social/vimeo.svg" alt="go to vimeo"/></a>
+			</section>
+		</footer>
+
+	</body>
+</html>

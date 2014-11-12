@@ -95,13 +95,13 @@ header {
 
 //post layout
 
-post{ //post container
+post, full-post{ //post container
 	display: block;
 	margin: 2rem 0;
 }
 
 //details and content sections
-post section{
+post section, full-post section{
 	float: left;
 	margin: 2%
 }

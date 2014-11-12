@@ -5,29 +5,17 @@
 		<title>A Simple Blog made with Angular.js</title>
 		<meta charset="UTF-8">
 		<link rel="stylesheet" type="text/css" href="stylesheets/reset.css">
+		<link rel="stylesheet" type="text/css" href="stylesheets/grid.css">
 		<link rel="stylesheet" type="text/css" href="stylesheets/style.css">
 	</head>
 	<body ng-app="blogApp">
 		<script type="text/javascript" src="js/angular.js"></script>
 		<script type="text/javascript" src="js/app.js"></script>
 
-		<header>
-			<img id="logo" src="images/logo.svg">
-			<section id="titleAndNav">
-				<h1>A Simple Angular Blog</h1>
-				<nav>
-					<ul>
-						<li><a href="#">Home</a></li>
-						<li><a href="#">About</a></li>
-						<li><a href="#">Search</a></li>
-					</ul>
-				</nav>
-			</section>
-		</header>
+		<header page-title></header>
 
 		<div id="blog" ng-controller="BlogCtrl">
-
-			<post class="postWrap clear" ng-repeat="post in blogData.posts" post="post"> 
+			<post class="clear" ng-repeat="post in blogData.posts" post="post"> 
 			</post>
 		</div>
 

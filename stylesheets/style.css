@@ -61,11 +61,11 @@ header {
 .details a, .details time {
   font-size: 1.2rem; }
 
-post {
+post, full-post {
   display: block;
   margin: 2rem 0; }
 
-post section {
+post section, full-post section {
   float: left;
   margin: 2%; }
 
