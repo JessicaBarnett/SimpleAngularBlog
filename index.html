@@ -12,16 +12,16 @@
 		<script type="text/javascript" src="js/angular.js"></script>
 		<script type="text/javascript" src="js/app.js"></script>
 
-		<header page-title></header>
+		<header page-title class="mainHeader"></header>
 
-		<div id="blog" ng-controller="BlogCtrl">
-			<post class="clear" ng-repeat="post in blogData.posts" post="post"> 
+		<div class="blog" ng-controller="BlogCtrl">
+			<post class="postContainer" ng-repeat="post in blogData.posts" post="post"> 
 			</post>
 		</div>
 
-		<footer>
+		<footer class="mainFooter">
 			<p> This very simple blog was created by Jessica Barnett, with the intent to learn Angular.js </p>
-			<section id="social">
+			<section class="socialWrap">
 				<a href="#"><img class="social" src="images/social/facebook.svg" alt="go to facebook"/></a>
 				<a href="#"><img class="social" src="images/social/twitter.svg" alt="go to twitter"/></a>
 				<a href="#"><img class="social" src="images/social/pinterest.svg" alt="go to pinterest"/></a>

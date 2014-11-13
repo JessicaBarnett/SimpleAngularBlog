@@ -6,10 +6,10 @@
 	<a href="#"> {{post.comments.length}} comments </a>
 </section>
 <section class="fullpost content">	
-	<h2>{{post.title}}</h2>
-	<p class="fullpost byline">{{post.author}}</p>
+	<h2 class="postTitle">{{post.title}}</h2>
+	<p class="byline">{{post.author}}</p>
 	<p>{{post.body}}</p>
 </section>
-<section id="comments">
+<section class="fullpost comments">
 	<comment ng-repeat="comment in post.comments" comment="comment"></comment>
 </section>

@@ -6,7 +6,7 @@
 	<a href="blog_pages/{{post.title | toUrl}}.html#comments"> {{post.comments.length}} comments </a>
 </section>
 <section class="post content">	
-	<h2>{{post.title}}</h2>
+	<h2 class="postTitle">{{post.title}}</h2>
 	<p class="byline">{{post.author}}</p>
 	<p>"{{post.body | limitTo:200}}..."</p>
 	<a href="blog_pages/{{post.title | toUrl}}.html">more</a>

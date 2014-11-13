@@ -1,90 +1,113 @@
 /***** General ******/
-* {
-  box-sizing: border-box; }
-
-body {
-  background: url("../images/linedpaper.png");
-  width: 100%;
-  height: 100%; }
-
-header, footer {
-  width: 100%;
-  height: 10rem; }
-
-.clear:after {
+.mainHeader:after, .postContainer:after, .comments:after, .socialWrap:after {
   content: "";
   display: table;
   clear: both; }
 
-#blog {
+body {
+  background: url("../images/linedpaper.png");
+  width: 100%;
+  height: 100%;
+  font-size: 100%; }
+
+.mainHeader, .mainFooter {
+  width: 100%;
+  height: 10rem; }
+
+.blog {
   background-color: rgba(255, 255, 255, 0.4);
   width: 80%;
   margin: 0 auto;
   padding: .5rem 1.5rem; }
 
-/***** Font Sizes ******/
-body {
-  font-size: 100%; }
-
-nav {
-  font-size: 1.5rem; }
-
-h1 {
+/***** Fonts *****/
+.mainTitle {
   font-size: 3rem; }
 
-h2 {
-  font-size: 2.2rem; }
-
-p.byline {
-  font-style: italic; }
-
-p, a {
+.post, .fullpost, .mainNav li {
   font-size: 1.8rem; }
 
-footer p {
-  font-size: 1.3rem; }
-
-/***** Header ******/
-header {
-  width: 100%;
-  padding-top: 2rem; }
-  header img {
-    height: 7rem;
-    margin: 0rem 2rem 0 4rem; }
-  header img, header #titleAndNav {
-    float: left; }
-  header ul li {
-    display: inline-block;
-    margin: 1rem 1rem 0 3rem; }
-
-/***** Posts ******/
-.details a, .details time {
+.post.details, .fullpost.details, .comments, footer {
   font-size: 1.2rem; }
 
-post, full-post {
+.post .postTitle, .fullpost .postTitle {
+  font-size: 2.2rem; }
+
+/***** mini-grid *****/
+.post.details, .fullpost.details {
+  width: 12%; }
+
+.comment.header {
+  width: 36%; }
+
+.comment.body {
+  width: 48%; }
+
+.post.content, .fullpost.content {
+  width: 75%; }
+
+/*****  *****/
+.byline {
+  font-style: italic;
+  margin: 1.5rem 0; }
+
+/***** Header ******/
+.mainLogo, .mainTitleAndNav {
+  float: left; }
+
+.mainLogo {
+  height: 7rem;
+  margin: 0rem 2rem 0 4rem; }
+
+.mainHeader {
+  width: 100%;
+  padding-top: 3rem; }
+
+.mainNav li {
+  display: inline-block;
+  margin: 1rem 1rem 0 3rem; }
+
+/***** Posts ******/
+.postContainer {
   display: block;
   margin: 2rem 0; }
 
-post section, full-post section {
+.post, .fullpost {
   float: left;
   margin: 2%; }
+  .post .tags li, .fullpost .tags li {
+    display: inline; }
 
-section.details {
-  width: 20%; }
+/***** Comments ******/
+.comments {
+  width: 80%;
+  float: right; }
 
-section.content {
-  width: 70%; }
+comment, .comment.header, .comment.body {
+  display: block;
+  min-height: 5rem; }
 
-.tags li {
-  display: inline; }
+comment {
+  width: 100%; }
 
-h2, p {
-  margin-bottom: 1rem; }
+.comment.image, .comment.details {
+  float: left;
+  padding: 1rem; }
+
+.comment.details {
+  padding-top: 2rem; }
+
+.comment.header, .comment.body {
+  float: left; }
+
+.comment.body {
+  padding: 1rem;
+  padding-top: 2rem; }
 
 /***** Footer ******/
 footer {
   margin-top: 2rem;
   text-align: center; }
 
-img.social {
+.social {
   margin: .5rem; }

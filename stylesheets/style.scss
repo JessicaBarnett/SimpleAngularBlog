@@ -1,137 +1,212 @@
 /***** General ******/
 
-*{
-	box-sizing: border-box;
+%clearfix{
+	&:after{
+		content: "";
+		display: table;
+		clear: both;
+	}
 }
 
 body{
 	background: url('../images/linedpaper.png');
 	width: 100%;
 	height: 100%;
+	font-size: 100%;
 }
 
-header, footer{
+.mainHeader, .mainFooter{
 	width: 100%;
 	height: 10rem;
 }
 
-
-.clear:after{
-	content: "";
-	display: table;
-	clear: both;
-}
-
-#blog {
+.blog {
 	background-color: rgba(255, 255, 255, .4);
 	width: 80%;
 	margin: 0 auto;
 	padding: .5rem 1.5rem;
 }
 
-/***** Font Sizes ******/
 
-body {
-	font-size: 100%;
+/***** Fonts *****/
+
+$headingFontSize: 3rem;
+$subheadingFontSize: 2.2rem;
+$generalFontSize: 1.8rem;
+$smallDetailFontSize: 1.2rem;
+
+%pageTitleFontSize{
+	font-size: $headingFontSize;
+}
+%postFontSize, %navLinkFontSize{
+	font-size: $generalFontSize;
+}
+%postDetailFontSize{
+	font-size: $smallDetailFontSize;
+}
+%postTitleFontSize{
+	font-size: $subheadingFontSize;
 }
 
-nav{
-	font-size: 1.5rem;
+
+/***** mini-grid *****/
+
+%oneColumn{
+	width: 12%; //should be ten but...
 }
 
-h1{ //page heading
-	font-size: 3rem;
+%twoColumn{
+	width: 24%;
 }
 
-h2{ //post headings
-	font-size: 2.2rem;
+%threeColumn{
+	width: 36%;
 }
 
-p.byline{
+%fourColumn{
+	width: 48%;
+}
+
+%fiveColumn{
+	width: 60%;
+}
+
+%sixColumn{
+	width: 75%;
+}
+
+%sevenColumn{
+	width: 87%;
+}
+
+/*****  *****/
+
+.byline{
 	font-style: italic;
+	margin: 1.5rem 0;
 }
 
-p, a{
-	font-size: 1.8rem;
-}
-
-footer p{
-	font-size: 1.3rem;
-}
 
 /***** Header ******/
 
-header {
+
+.mainLogo, .mainTitleAndNav{
+	float: left;
+}
+
+.mainLogo{
+	height: 7rem;
+	margin: 0rem 2rem 0 4rem;
+}
+
+.mainHeader {
+	@extend %clearfix;
 	width: 100%;
-	padding-top: 2rem;
-	// border-bottom: 2px dotted rgba(0, 0, 0, .2);
+	padding-top: 3rem;
+}
 
-	//logo sizing
-	img{
-		height: 7rem;
-		margin: 0rem 2rem 0 4rem;
-	}
+.mainTitle{
+	@extend %pageTitleFontSize;
+}
 
-	img, #titleAndNav{
-		float: left;
-	}
-
-	//align nav horizontally
-	ul li {
-		display: inline-block;
-		margin: 1rem 1rem 0 3rem;
-	}
-
-
+.mainNav li {
+	@extend %navLinkFontSize;
+	display: inline-block;
+	margin: 1rem 1rem 0 3rem;
 }
 
 
 /***** Posts ******/
 
-//post fonts
-.details a, .details time{
-	font-size: 1.2rem;
-}
+//post continer layout
 
-//post layout
-
-post, full-post{ //post container
+.postContainer{ //post container
+	@extend %clearfix;
 	display: block;
 	margin: 2rem 0;
 }
 
-//details and content sections
-post section, full-post section{
+//pretty contextual though...
+.post, .fullpost{
+	@extend %postFontSize;
 	float: left;
-	margin: 2%
+	margin: 2%;
+
+	.postTitle{ //post headings
+		@extend %postTitleFontSize;
+	}
+
+	&.content{
+		@extend %sixColumn;
+	}
+
+	&.details{
+		@extend %postDetailFontSize;
+		@extend %oneColumn;
+	}
+
+	.tags li {
+		display: inline;
+	}
 }
 
-section.details{
-	width: 20%;
+
+/***** Comments ******/
+
+.comments{
+	@extend %clearfix;
+	@extend %postDetailFontSize;
+
+	width: 80%;
+	float: right;
 }
 
-section.content{
-	width: 70%;
+comment, .comment.header, .comment.body{
+	display: block;
+	min-height: 5rem;
 }
 
-.tags li {
-	display: inline;
+comment{
+		width: 100%;
 }
 
-h2, p {
-	margin-bottom: 1rem;
+.comment.image, .comment.details{
+	float: left;
+	padding: 1rem;
 }
 
+.comment.details{
+	padding-top: 2rem;
+}
+
+.comment.header, .comment.body{
+	float: left;
+}
+
+.comment.header{
+	@extend %threeColumn;
+}
+
+.comment.body{
+	@extend %fourColumn;
+	padding: 1rem;
+	padding-top: 2rem;
+}
 
 
 /***** Footer ******/
 
 footer{
+	@extend %postDetailFontSize;
 	margin-top: 2rem;
 	text-align: center;
 }
 
-img.social {
+.socialWrap{
+	@extend %clearfix;
+}
+
+.social {
 	margin: .5rem;
 }
 
