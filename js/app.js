@@ -1,5 +1,10 @@
 // (function(){
 
+// function addBaseURL(){
+// 	document.getElementByTagName('head')[0].innerHTML('<base href="http://jessicabarnett.github.io/SimpleAngularBlog">');
+// }
+
+// addBaseURL();
 
 //Module
 var blogApp = angular.module('blogApp', []);
