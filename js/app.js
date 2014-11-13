@@ -2,16 +2,22 @@
 
 //before this was added, we were getting 404 errors for the templates when the site was pushed to gh-pages
 //because it was looking in http://jessicabarnett.github.io/templates  
+var directory;
 
-//use this when pushing to server
-var directory = "http://jessicabarnett.github.io/SimpleAngularBlog";
+function setURL() {
+	if ((document.URL).indexOf("http://jessicabarnett.github.io/SimpleAngularBlog/index.html") != -1)
+		directory = "http://jessicabarnett.github.io/SimpleAngularBlog";
+	else
+		directory = "";
+}
 
-//use this when testing locally
-// var directory = "";
+setURL();
+
+
+
 
 //Module
 var blogApp = angular.module('blogApp', []);
-
 
 //factory for blog post data
 blogApp.factory('BlogData', function(){
