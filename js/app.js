@@ -1,5 +1,7 @@
 // (function(){
 
+	var path = "http://jessicabarnett.github.io/SimpleAngularBlog";
+
 //Module
 var blogApp = angular.module('blogApp', []);
 
@@ -136,7 +138,7 @@ blogApp.controller("BlogCtrl", function($scope, BlogData){
 blogApp.directive("pageTitle", function(){
 	return {
 		restrict: "A",
-		templateUrl: '../templates/pageTitle-template.html',
+		templateUrl: path+'../templates/pageTitle-template.html',
 		scope: {
 			path: "@"
 		},
@@ -150,7 +152,7 @@ blogApp.directive("pageTitle", function(){
 blogApp.directive("post", function(){
 	return {
 		restrict: "E",
-		templateUrl: '../templates/post-snippet-template.html',
+		templateUrl: path+'../templates/post-snippet-template.html',
 		scope: { //isolate scope
 			post: "="
 		},
@@ -164,7 +166,7 @@ blogApp.directive("post", function(){
 blogApp.directive("fullPost", function(){
 	return {
 		restrict: "E",
-		templateUrl: '../templates/post-page-template.html',
+		templateUrl: path+'../templates/post-page-template.html',
 		scope: { //isolate scope
 			post: "="
 		},
@@ -178,7 +180,7 @@ blogApp.directive("fullPost", function(){
 blogApp.directive("comment", function(){
 	return {
 		restrict: "E",
-		templateUrl: '../templates/comment-template.html',
+		templateUrl: path+'../templates/comment-template.html',
 		scope: { //isolate scope
 			comment: "="
 		},
