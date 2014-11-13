@@ -1,6 +1,13 @@
 // (function(){
 
-	var path = "http://jessicabarnett.github.io/SimpleAngularBlog";
+//before this was added, we were getting 404 errors for the templates when the site was pushed to gh-pages
+//because it was looking in http://jessicabarnett.github.io/templates  
+
+//use this when pushing to server
+var path = "http://jessicabarnett.github.io/SimpleAngularBlog";
+
+//use this when testing locally
+// var path = "";
 
 //Module
 var blogApp = angular.module('blogApp', []);
