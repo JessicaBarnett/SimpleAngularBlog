@@ -5,7 +5,7 @@
 var directory;
 
 function setURL() {
-	if ((document.URL).indexOf("http://jessicabarnett.github.io/SimpleAngularBlog/index.html") != -1)
+	if ((document.URL).indexOf("http://jessicabarnett.github.io/SimpleAngularBlog/") != -1)
 		directory = "http://jessicabarnett.github.io/SimpleAngularBlog";
 	else
 		directory = "";
