@@ -138,7 +138,7 @@ blogApp.controller("BlogCtrl", function($scope, BlogData){
 blogApp.directive("pageTitle", function(){
 	return {
 		restrict: "A",
-		templateUrl: path.concat('../templates/pageTitle-template.html'),
+		templateUrl: path.concat('/templates/pageTitle-template.html'),
 		scope: {
 			path: "@"
 		},
@@ -152,7 +152,7 @@ blogApp.directive("pageTitle", function(){
 blogApp.directive("post", function(){
 	return {
 		restrict: "E",
-		templateUrl: path.concat('../templates/post-snippet-template.html'),
+		templateUrl: path.concat('/templates/post-snippet-template.html'),
 		scope: { //isolate scope
 			post: "="
 		},
@@ -166,7 +166,7 @@ blogApp.directive("post", function(){
 blogApp.directive("fullPost", function(){
 	return {
 		restrict: "E",
-		templateUrl: path.concat('../templates/post-page-template.html'),
+		templateUrl: path.concat('/templates/post-page-template.html'),
 		scope: { //isolate scope
 			post: "="
 		},
@@ -180,7 +180,7 @@ blogApp.directive("fullPost", function(){
 blogApp.directive("comment", function(){
 	return {
 		restrict: "E",
-		templateUrl: path.concat('../templates/comment-template.html'),
+		templateUrl: path.concat('/templates/comment-template.html'),
 		scope: { //isolate scope
 			comment: "="
 		},
