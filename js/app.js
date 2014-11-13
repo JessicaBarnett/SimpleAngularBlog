@@ -7,7 +7,7 @@
 var directory = "http://jessicabarnett.github.io/SimpleAngularBlog";
 
 //use this when testing locally
-// var path = "";
+// var directory = "";
 
 //Module
 var blogApp = angular.module('blogApp', []);
