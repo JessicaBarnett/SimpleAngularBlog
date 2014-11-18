@@ -1,10 +1,10 @@
-<header class="comment header">
-	<img class="comment image" src="{{comment.image}}"/>
+<img class="comment image" src="{{comment.image}}"/>
+<section class="comment content">
 	<div class="comment details">
 		<p><a href="{{comment.website}}">{{comment.author}}</a> // <a href="#">Reply</a></p>
 		<time datetime="{{comment.date | date}}">{{comment.date | date}}</time>
 	</div>
-</header>
-<section class="comment body">
-	<p>{{comment.body}}</p>
-</section>
+	<div class="comment body">
+		<p>{{comment.body}}</p>
+	</div>
+</div>

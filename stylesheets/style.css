@@ -1,52 +1,59 @@
-/***** General ******/
-.mainHeader:after, .postContainer:after, .comments:after, .socialWrap:after {
+/*all padding and borders added will cut into the width, not add to it.  
+margin will add to it*/
+* {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box; }
+
+.mainHeader:after, .postContainer:after, comment:after, .socialWrap:after {
   content: "";
   display: table;
   clear: both; }
 
-body {
-  background: url("../images/linedpaper.png");
-  width: 100%;
-  height: 100%;
-  font-size: 100%; }
+/***** grid *****/
+.post.details, .fullpost.details {
+  width: 12.5%; }
 
-.mainHeader, .mainFooter {
-  width: 100%;
-  height: 10rem; }
+.comment.image {
+  width: 18.75%; }
 
-.blog {
-  background-color: rgba(255, 255, 255, 0.4);
-  width: 80%;
-  margin: 0 auto;
-  padding: .5rem 1.5rem; }
+.post.content, .fullpost.content {
+  width: 75%; }
+
+.blog, .comments, .comment.content {
+  width: 81.25%; }
+
+body, .mainHeader, .mainFooter, comment, .commentForm {
+  width: 100%; }
 
 /***** Fonts *****/
 .mainTitle {
   font-size: 3rem; }
 
-.post, .fullpost, .mainNav li {
+.post, .fullpost, .mainNav li, .commentForm, .comments {
   font-size: 1.8rem; }
 
-.post.details, .fullpost.details, .comments, footer {
+.post.details, .fullpost.details, .comment.details, footer {
   font-size: 1.2rem; }
 
 .post .postTitle, .fullpost .postTitle {
   font-size: 2.2rem; }
 
-/***** mini-grid *****/
-.post.details, .fullpost.details {
-  width: 12%; }
+/***** General ******/
+body {
+  background: url("../images/linedpaper.png");
+  height: 100%;
+  font-size: 100%; }
 
-.comment.header {
-  width: 36%; }
+.mainHeader, .mainFooter {
+  height: 10rem; }
 
-.comment.body {
-  width: 48%; }
+.blog {
+  background-color: rgba(255, 255, 255, 0.4);
+  margin: 0 auto;
+  padding: .5rem 1.5rem; }
 
-.post.content, .fullpost.content {
-  width: 75%; }
-
-/*****  *****/
+/***** reusable classes *****/
 .byline {
   font-style: italic;
   margin: 1.5rem 0; }
@@ -60,7 +67,6 @@ body {
   margin: 0rem 2rem 0 4rem; }
 
 .mainHeader {
-  width: 100%;
   padding-top: 3rem; }
 
 .mainNav li {
@@ -80,29 +86,27 @@ body {
 
 /***** Comments ******/
 .comments {
-  width: 80%;
   float: right; }
 
 comment, .comment.header, .comment.body {
   display: block;
   min-height: 5rem; }
 
-comment {
-  width: 100%; }
-
-.comment.image, .comment.details {
-  float: left;
-  padding: 1rem; }
-
 .comment.details {
-  padding-top: 2rem; }
+  padding: .5rem .5rem .5rem 0; }
 
-.comment.header, .comment.body {
-  float: left; }
+.comment.content, .comment.image {
+  float: left;
+  padding: .5rem; }
 
-.comment.body {
-  padding: 1rem;
-  padding-top: 2rem; }
+/***** Comment Form *****/
+.commentForm {
+  height: 2.5rem;
+  margin: .5rem;
+  padding: .5rem; }
+
+.commentContent {
+  height: 8rem; }
 
 /***** Footer ******/
 footer {

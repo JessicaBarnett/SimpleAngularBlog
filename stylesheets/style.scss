@@ -1,85 +1,31 @@
+
+@import "grid";
+@import "vars";
+
+
 /***** General ******/
 
-%clearfix{
-	&:after{
-		content: "";
-		display: table;
-		clear: both;
-	}
-}
-
 body{
+	@extend %sixteenColumns;
 	background: url('../images/linedpaper.png');
-	width: 100%;
 	height: 100%;
 	font-size: 100%;
 }
 
 .mainHeader, .mainFooter{
-	width: 100%;
+	@extend %sixteenColumns;
 	height: 10rem;
 }
 
 .blog {
 	background-color: rgba(255, 255, 255, .4);
-	width: 80%;
+	@extend %thirteenColumns;
 	margin: 0 auto;
 	padding: .5rem 1.5rem;
 }
 
 
-/***** Fonts *****/
-
-$headingFontSize: 3rem;
-$subheadingFontSize: 2.2rem;
-$generalFontSize: 1.8rem;
-$smallDetailFontSize: 1.2rem;
-
-%pageTitleFontSize{
-	font-size: $headingFontSize;
-}
-%postFontSize, %navLinkFontSize{
-	font-size: $generalFontSize;
-}
-%postDetailFontSize{
-	font-size: $smallDetailFontSize;
-}
-%postTitleFontSize{
-	font-size: $subheadingFontSize;
-}
-
-
-/***** mini-grid *****/
-
-%oneColumn{
-	width: 12%; //should be ten but...
-}
-
-%twoColumn{
-	width: 24%;
-}
-
-%threeColumn{
-	width: 36%;
-}
-
-%fourColumn{
-	width: 48%;
-}
-
-%fiveColumn{
-	width: 60%;
-}
-
-%sixColumn{
-	width: 75%;
-}
-
-%sevenColumn{
-	width: 87%;
-}
-
-/*****  *****/
+/***** reusable classes *****/
 
 .byline{
 	font-style: italic;
@@ -101,7 +47,6 @@ $smallDetailFontSize: 1.2rem;
 
 .mainHeader {
 	@extend %clearfix;
-	width: 100%;
 	padding-top: 3rem;
 }
 
@@ -137,12 +82,12 @@ $smallDetailFontSize: 1.2rem;
 	}
 
 	&.content{
-		@extend %sixColumn;
+		@extend %twelveColumns;
 	}
 
 	&.details{
 		@extend %postDetailFontSize;
-		@extend %oneColumn;
+		@extend %twoColumns;
 	}
 
 	.tags li {
@@ -154,10 +99,8 @@ $smallDetailFontSize: 1.2rem;
 /***** Comments ******/
 
 .comments{
-	@extend %clearfix;
-	@extend %postDetailFontSize;
-
-	width: 80%;
+	@extend %commentFontSize;
+	@extend %thirteenColumns;
 	float: right;
 }
 
@@ -167,30 +110,46 @@ comment, .comment.header, .comment.body{
 }
 
 comment{
-		width: 100%;
-}
-
-.comment.image, .comment.details{
-	float: left;
-	padding: 1rem;
+	@extend %clearfix;
+	@extend %sixteenColumns;
 }
 
 .comment.details{
-	padding-top: 2rem;
+	@extend %postDetailFontSize;
+	padding: .5rem .5rem .5rem 0;
 }
 
-.comment.header, .comment.body{
+.comment.content, .comment.image{
 	float: left;
+	padding: .5rem;
 }
 
-.comment.header{
-	@extend %threeColumn;
+.comment.image{
+	@extend %threeColumns;
 }
 
-.comment.body{
-	@extend %fourColumn;
-	padding: 1rem;
-	padding-top: 2rem;
+.comment.content{
+	@extend %thirteenColumns;
+}
+
+
+/***** Comment Form *****/
+
+%textField{
+	@extend %formFontSize;
+	height: 2.5rem;
+	margin: .5rem;
+	padding: .5rem;
+}
+
+.commentForm{
+	@extend %sixteenColumns;
+	@extend %textField;
+}
+
+
+.commentContent{
+	height: 8rem;
 }
 
 
