@@ -12,11 +12,7 @@
 </section>
 <section class="fullpost comments">
 	<comment ng-repeat="comment in post.comments" comment="comment"></comment>
-	<section>
-		<input class="commentForm name" type="text" placeholder="Name"/>
-		<input class="commentForm email" type="text" placeholder="E-mail"/>
-		<input class="commentForm website" type="text" placeholder="Website"/>
-		<textarea class="commentForm commentContent"rows="10" cols="50" placeholder="What's on your mind?">
-		</textarea>
+	<section ng-controller="commentFormCtrl">
+		<comment-form></comment-form>
 	</section>
 </section>

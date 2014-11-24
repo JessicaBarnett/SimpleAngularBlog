@@ -1,8 +1,20 @@
-<section>
-	<input class="fullPage" type="text" placeholder="Name"/>
-	<input class="fullPage" type="text" placeholder="E-mail"/>
-	<input class="fullPage" type="text" placeholder="Website"/>
-	<textarea class="fullPage" rows="4" cols="50">
-	At w3schools.com you will learn how to make a website. We offer free tutorials in all web development technologies. 
-	</textarea>
+<!--This could work for now-->
+<img class="comment image" src="{{comment.image}}"/>
+<section class="comment content">
+	<div class="comment details">
+		<p><a href="{{comment.website}}">{{comment.author}}</a> // <a href="#">Reply</a></p>
+		<time datetime="{{comment.date | date}}">{{comment.date | date}}</time>
+	</div>
+	<div class="comment body">
+		<p>{{comment.body}}</p>
+	</div>
 </section>
+
+<!--this is the ideal solution, but there's issues with scoping...-->
+<!-- <comment comment="comment"></comment> -->
+<p>hello</p>
+<input class="commentForm name" type="text" ng-model="comment.name" placeholder="Name"/>
+<input class="commentForm email" type="text" ng-model="comment.email" placeholder="E-mail"/>
+<input class="commentForm website" type="text" ng-model="comment.website"placeholder="Website"/>
+<textarea class="commentForm commentContent"rows="10" cols="50" ng-model="comment.body" placeholder="What's on your mind?">
+</textarea>

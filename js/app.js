@@ -15,7 +15,6 @@ setURL();
 
 
 
-
 //Module
 var blogApp = angular.module('blogApp', []);
 
@@ -214,8 +213,17 @@ blogApp.directive("comment", function(){
 
 
 //comment directive
-blogApp.controller("commentFormCtrl", function($scope, comment){
+blogApp.controller("commentFormCtrl", function($scope, BlogData){
 	$scope.blogData = BlogData;
+	$scope.comment = {
+		"author": "",
+		"email": "",
+		"website": "",
+		"body": "",
+		"image": "../images/cheese_icon.svg",
+		"date": new Date
+	}
+
 });
 
 //comment directive
@@ -223,9 +231,9 @@ blogApp.directive("commentForm", function(){
 	return {
 		restrict: "E",
 		templateUrl: directory.concat('/templates/comment-form-template.html'),
-		scope: { //isolate scope
-			comment: "="
-		},
+		// scope: { //isolate scope
+		// 	comment: "="
+		// },
 		link: function(scope, element, attrs){
 		}
 	}
@@ -234,17 +242,17 @@ blogApp.directive("commentForm", function(){
 
 /******* search page *******/
 
-
 blogApp.controller("tagListCtrl", function($scope, BlogData){
-
+	$scope.blogData = BlogData;
+	$scope.uniqueTags = getTagList(BlogData);
 });
 
 blogApp.directive("tagList", function(){
-
-
-
+	return {
+		restrict: "E",
+		templateUrl: directory.concat('/templates/taglist-template.html')
+	}
 });
-
 
 blogApp.controller("archiveListCtrl", function($scope, BlogData){
 
@@ -252,11 +260,30 @@ blogApp.controller("archiveListCtrl", function($scope, BlogData){
 
 blogApp.directive("archiveList", function(){
 
-
-
 });
 
 
+function getTagList(blogData){
+	var tagList = [];
+	blogData.forEach(function(post, index, array){
+		post.tags.forEach(function(tag, tagIndex, tagArray){
+			if (!isPresent(tagList, tag)){
+				tagList.push(tag);
+			}
+		})
+	})
+	return tagList;
+}
 
+//takes an array of strings and a string
+//true if passed string is present in array, false otherwise
+function isPresent(stringArray, compareString){
+	for (var i = 0; i < stringArray.length; i++){
+		if (stringArray[i].indexOf(compareString) != -1){
+			return true;
+		}
+	}
+	return false;
+}
 
 // })();
