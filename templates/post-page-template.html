@@ -10,9 +10,9 @@
 	<p class="byline">{{post.author}}</p>
 	<p>{{post.body}}</p>
 </section>
-<section class="fullpost comments">
+<section class="fullpost comments" ng-controller="commentCtrl">
 	<comment ng-repeat="comment in post.comments" comment="comment"></comment>
-	<section ng-controller="commentFormCtrl">
+	<section>
 		<comment-form></comment-form>
 	</section>
 </section>

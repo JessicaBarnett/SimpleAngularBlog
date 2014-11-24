@@ -196,7 +196,29 @@ blogApp.directive("fullPost", function(){
 
 
 /******* Comments and Comment Form *******/
+blogApp.controller("commentCtrl", function($scope, BlogData){
+	$scope.blogData = BlogData;
+	$scope.isCommentInProgress = function(){
+		//returns true if there is an author, body, or image in the comment form
+		return ($scope.comment.author || $scope.comment.body || $scope.comment.image) ? true : false;
+	};
+	$scope.clearForm = function(){
+		return {
+			"author": "",
+			"email": "",
+			"website": "",
+			"body": "",
+			"image": "",
+			"date": new Date
+		}
+	};
+	$scope.submitComment = function(post){
+		post.comments.push($scope.comment);
+		$scope.comment = $scope.clearForm();
+	};
+	$scope.comment = $scope.clearForm();
 
+});
 
 //comment directive
 blogApp.directive("comment", function(){
@@ -211,33 +233,18 @@ blogApp.directive("comment", function(){
 	}
 });
 
-
-//comment directive
-blogApp.controller("commentFormCtrl", function($scope, BlogData){
-	$scope.blogData = BlogData;
-	$scope.comment = {
-		"author": "",
-		"email": "",
-		"website": "",
-		"body": "",
-		"image": "../images/cheese_icon.svg",
-		"date": new Date
-	}
-
-});
-
 //comment directive
 blogApp.directive("commentForm", function(){
 	return {
 		restrict: "E",
 		templateUrl: directory.concat('/templates/comment-form-template.html'),
-		// scope: { //isolate scope
-		// 	comment: "="
-		// },
 		link: function(scope, element, attrs){
+
 		}
 	}
 });
+
+
 
 
 /******* search page *******/
