@@ -234,6 +234,10 @@ blogApp.controller("commentCtrl", function($scope, BlogData){
 		}
 	};
 	$scope.submitComment = function(post){
+		if ($scope.comment.image === ""){ //Add feature to check for a 404 event on image request?
+			$scope.comment.image = "../images/cheese_icon.svg";
+		}
+		
 		post.comments.push($scope.comment);
 		$scope.comment = $scope.clearForm();
 	};
