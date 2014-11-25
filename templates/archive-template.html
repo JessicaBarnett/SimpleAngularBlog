@@ -1,0 +1,7 @@
+<!--go through all posts in blogData.  pull Dates, accumulate numbers for each.  add them to the dom as a ul-->
+<ul ng-controller="archiveListCtrl">
+
+	<li ng-repeat="archiveItem in archiveList">
+		<a>{{archiveItem.month | getMonthName}} ({{archiveItem.posts.length}})</a>
+	</li>
+</ul>

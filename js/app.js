@@ -18,12 +18,14 @@ setURL();
 //Module
 var blogApp = angular.module('blogApp', []);
 
-//factory for blog post data
+//factory to generate blog post data
 blogApp.factory('BlogData', function($http){
 	var blogData = {};
 
 	// blogData.externalPosts = $http('get', [{'url': 'blogData.json'}])
 	// 	.success(function(response) {
+	// 		console.log("totally worked!");
+	// 		console.dir(response.data);
  //        	return response.data;
  //    	}).failure(function(){
  //    		console.log("failed to load omg noooo!!");
@@ -86,7 +88,7 @@ blogApp.factory('BlogData', function($http){
 			"author": "Montery Jack",
 			"email": "cheese@please.com",
 			"website": "https://www.google.com/search?q=montery%20jack",
-			"body": "Holy Macaroni!!",
+			"body": "Halloumi to bid you fondue.",
 			"image": "../images/cheese_icon.svg",
 			"date": new Date(2014, 10, 12)
 		}]
@@ -101,26 +103,35 @@ blogApp.factory('BlogData', function($http){
 			"author": "Stilton",
 			"email": "cheese@please.com",
 			"website": "https://www.google.com/search?q=stilton",
-			"body": "Oh, don't be so bleu!",
+			"body": "Oh, don't be so bleu!  Just always drive caerphilly.",
 			"image": "../images/cheese_icon.svg",
 			"date": new Date(2014, 10, 12)
+		},
+		{
+			"author": "Manchengo",
+			"email": "cheese@please.com",
+			"website": "https://www.google.com/search?q=roquefort",
+			"body": "Don't be a babybel!  Cheese the day!!  Brie all you can brie!!",
+			"image": "../images/cheese_icon.svg",
+			"date": new Date(2014, 11, 12)
 		}, 
 		{
 			"author": "Gruyere",
 			"email": "cheese@please.com",
 			"website": "https://www.google.com/search?q=gruyere",
-			"body": "When in doubt, pray to Cheesus.", 
+			"body": "Boo!  There's a Meunster under your bed!!  Feta run! LOL!!", 
 			"image": "../images/cheese_icon.svg",
-			"date": new Date(2014, 10, 12)
+			"date": new Date(2014, 14, 12)
 		},
 		{
-			"author": "Roquefort",
+			"author": "Gorgonzola",
 			"email": "cheese@please.com",
-			"website": "https://www.google.com/search?q=roquefort",
-			"body": "We have to take care of our babybels Caerphilly!",
+			"website": "https://www.google.com/search?q=gorgonzola",
+			"body": "Whenever I'm paneer Meunsters, I edam up!  Rawr!!",
 			"image": "../images/cheese_icon.svg",
-			"date": new Date(2014, 10, 12)
+			"date": new Date(2014, 17, 12)
 		}]
+
 	}];
 
 	return blogData;
@@ -130,6 +141,14 @@ blogApp.factory('BlogData', function($http){
 blogApp.filter('date', function($filter){
 	return function(dateObject){
 		return (dateObject.getMonth()+1)+"/"+dateObject.getDate()+"/"+dateObject.getFullYear();
+	};
+});
+
+//convert a month number to a month name
+blogApp.filter('getMonthName', function($filter){
+	var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+	return function(monthNumber){
+		return months[monthNumber];
 	};
 });
 
@@ -196,6 +215,8 @@ blogApp.directive("fullPost", function(){
 
 
 /******* Comments and Comment Form *******/
+
+
 blogApp.controller("commentCtrl", function($scope, BlogData){
 	$scope.blogData = BlogData;
 	$scope.isCommentInProgress = function(){
@@ -245,52 +266,112 @@ blogApp.directive("commentForm", function(){
 });
 
 
-
-
 /******* search page *******/
+
+/*
+	//ArchiveItem and Tag formats
+	 
+	//var tagList = [
+	// {"name": "cheese", "posts" : []},
+	// {"name": "Provolone", "posts" : []},
+	// ]
+
+	// var archiveList= [
+	// 	{"year": 2014, "month": 8, "posts": []},
+	// 	{"year": 2014, "month": 9, "posts": []},
+	// 	{"year": 2014, "month": 10, "posts": []},
+	// 	{"year": 2015, "month": 0, "posts": []}
+	// ]
+*/
+
+//****** Tag List ******//
 
 blogApp.controller("tagListCtrl", function($scope, BlogData){
 	$scope.blogData = BlogData;
-	$scope.uniqueTags = getTagList(BlogData);
+	$scope.getTagList = function(blogData){
+		var tagList = [];
+		blogData.posts.forEach(function(post, index, array){
+			post.tags.forEach(function(tag, tagIndex, tagArray){
+				var matchIndex = $scope.findIndexOfMatch(tagList, tag);
+				if (!matchIndex){ //if there is no match
+					tagList.push({"name" : tag, "posts": [post]});
+				}
+				else{
+					tagList[matchIndex].number += 1;
+					tagList[matchIndex].posts.push(post);
+				}
+			})
+		})
+		return tagList;
+	};
+	$scope.findIndexOfMatch = function(stringArray, compareString){
+		for (var i = 0; i < stringArray.length; i++){
+			if (stringArray[i].name.indexOf(compareString) != -1){
+				return i;
+			}
+		}
+		return null;
+	};
+	$scope.uniqueTags = $scope.getTagList($scope.blogData);
 });
 
 blogApp.directive("tagList", function(){
 	return {
 		restrict: "E",
 		templateUrl: directory.concat('/templates/taglist-template.html')
+		// link: function(scope, element, attrs){
+		// 	console.dir(scope);
+		// }
 	}
 });
 
-blogApp.controller("archiveListCtrl", function($scope, BlogData){
+//****** Archive List ******//
 
+blogApp.controller("archiveListCtrl", function($scope, $filter, BlogData){
+	$scope.blogData = BlogData;
+	$scope.getArchiveList = function(blogData){
+		var archiveList = []; 
+
+		blogData.posts.forEach(function(post, index, array){
+			var currentPost = $scope.createArchiveItem(post);
+
+			//search for a the year and month in archiveList
+			var matchIndex = $scope.getIndexOfMatch(archiveList, currentPost);
+			if (matchIndex)//if month and year are already present
+				archiveList[matchIndex].posts.push(post);
+			else //add post to relevant objects "posts" prop
+				archiveList.push(currentPost);
+		})
+
+		return archiveList;
+	};
+	$scope.createArchiveItem = function(post){
+		return {"month" : post.date.getMonth(),
+				"year" : post.date.getFullYear(),
+				"posts" : [post] //use posts.length to get number
+		}
+	};
+	$scope.getIndexOfMatch = function(archiveList, archiveItem){
+		if (archiveList.length > 0){
+			for (var i = 0; i < archiveList.length; i++){
+				if (archiveList[i].year === archiveItem.year && archiveList[i].month === archiveItem.month){
+					return i;
+				}
+			}
+		}
+		return null;
+	};
+	$scope.archiveList = $scope.getArchiveList($scope.blogData);
 });
 
 blogApp.directive("archiveList", function(){
-
-});
-
-
-function getTagList(blogData){
-	var tagList = [];
-	blogData.forEach(function(post, index, array){
-		post.tags.forEach(function(tag, tagIndex, tagArray){
-			if (!isPresent(tagList, tag)){
-				tagList.push(tag);
-			}
-		})
-	})
-	return tagList;
-}
-
-//takes an array of strings and a string
-//true if passed string is present in array, false otherwise
-function isPresent(stringArray, compareString){
-	for (var i = 0; i < stringArray.length; i++){
-		if (stringArray[i].indexOf(compareString) != -1){
-			return true;
+	return {
+		restrict: "E",
+		templateUrl: directory.concat('/templates/archive-template.html'),
+		link: function(scope, element, attrs){
+			console.dir(scope);
 		}
 	}
-	return false;
-}
+});
 
 // })();

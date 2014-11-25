@@ -1,3 +1,5 @@
 <ul ng-controller="tagListCtrl">
-	<li ng-repeat="tag in uniqueTags"></li>
+	<li ng-repeat="tag in uniqueTags"><a>{{tag.name}} ({{tag.posts.length}})</a>
+		<!--drop-down list of all posts with that tag will go here-->
+	</li>
 </ul>

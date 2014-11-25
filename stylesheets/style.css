@@ -5,7 +5,7 @@ margin will add to it*/
   -webkit-box-sizing: border-box;
   box-sizing: border-box; }
 
-.mainHeader:after, .postContainer:after, comment:after, .socialWrap:after {
+.mainHeader:after, .postContainer:after, comment:after, .archiveWrap:after, .socialWrap:after {
   content: "";
   display: table;
   clear: both; }
@@ -17,23 +17,32 @@ margin will add to it*/
 .comment.image {
   width: 18.75%; }
 
+archive-list, tag-list {
+  width: 31.25%; }
+
+.commentFormSubmit, .searchField {
+  width: 37.5%; }
+
+.about, .searchWrap {
+  width: 62.5%; }
+
 .post.content, .fullpost.content {
   width: 75%; }
 
-.blog, .comments, .comment.content {
+.blog, article, .searchWrap, .comments, .comment.content {
   width: 81.25%; }
 
-body, .mainHeader, .mainFooter, comment, .commentForm {
+body, .mainHeader, .mainFooter, comment, .commentForm, .archiveWrap {
   width: 100%; }
 
 /***** Fonts *****/
 .mainTitle {
   font-size: 3rem; }
 
-.post, .fullpost, .mainNav li, .commentForm, .comments {
+.about, .post, .fullpost, .searchWrap, .searchField, .mainNav li, .commentForm, .comments {
   font-size: 1.8rem; }
 
-.post.details, .fullpost.details, .comment.details, footer {
+.post.details, .fullpost.details, .comment.details, .commentFormSubmit, footer {
   font-size: 1.2rem; }
 
 .post .postTitle, .fullpost .postTitle {
@@ -48,10 +57,13 @@ body {
 .mainHeader, .mainFooter {
   height: 10rem; }
 
-.blog {
+.blog, article, .searchWrap {
   background-color: rgba(255, 255, 255, 0.4);
   margin: 0 auto;
   padding: .5rem 1.5rem; }
+
+p {
+  margin-top: 1rem; }
 
 /***** reusable classes *****/
 .byline {
@@ -73,6 +85,7 @@ body {
   display: inline-block;
   margin: 1rem 1rem 0 3rem; }
 
+/***** Static Articles ******/
 /***** Posts ******/
 .postContainer {
   display: block;
@@ -107,6 +120,27 @@ comment, .comment.header, .comment.body {
 
 .commentContent {
   height: 8rem; }
+
+.commentFormSubmit {
+  display: block;
+  border: 0;
+  height: 4rem;
+  margin: 0 auto;
+  background-color: #B0B0B0; }
+  .commentFormSubmit:hover {
+    background-color: #D8D8D8; }
+
+/***** search Page ******/
+.searchField {
+  display: block;
+  margin: 2rem auto;
+  height: 3rem;
+  padding: .25rem; }
+
+archive-list, tag-list {
+  display: block;
+  float: left;
+  margin-left: 16%; }
 
 /***** Footer ******/
 footer {

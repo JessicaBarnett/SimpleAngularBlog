@@ -14,13 +14,13 @@
 
 <!--this is the ideal solution, but there's issues with scoping...-->
 <!-- <comment comment="comment"></comment> -->
-<input class="commentForm name" type="text" ng-model="comment.author" placeholder="Name"/>
-<input class="commentForm email" type="text" placeholder="E-mail"/>
+<input class="commentForm name" type="text" ng-model="comment.author" placeholder="Name" required  />
+<input class="commentForm email" type="text" placeholder="E-mail" required  />
 <input class="commentForm website" type="text" ng-model="comment.website" placeholder="Website"/>
-<input class="commentForm image" type="text" ng-model="comment.image" placeholder="image url"/>
-<textarea class="commentForm commentContent"rows="10" cols="50" ng-model="comment.body" placeholder="What's on your mind?">
+<input class="commentForm image" type="text" ng-model="comment.image" placeholder="image url" required/>
+<textarea class="commentForm commentContent"rows="10" cols="50" ng-model="comment.body" placeholder="What's on your mind?" required >
 </textarea>
-<input type="submit" value="Submit Comment" ng-click="submitComment(post)"/>
+<input type="submit" class="commentFormSubmit" value="Submit Comment" ng-click="submitComment(post)"/>
 
 <!--Use this url to test image function!
 http://bestclipartblog.com/clipart-pics/cheese-clip-art-14.png

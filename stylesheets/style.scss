@@ -17,11 +17,17 @@ body{
 	height: 10rem;
 }
 
-.blog {
+
+.blog, article, .searchWrap {
 	background-color: rgba(255, 255, 255, .4);
 	@extend %thirteenColumns;
 	margin: 0 auto;
 	padding: .5rem 1.5rem;
+}
+
+
+p{
+	margin-top: 1rem;
 }
 
 
@@ -58,6 +64,13 @@ body{
 	@extend %navLinkFontSize;
 	display: inline-block;
 	margin: 1rem 1rem 0 3rem;
+}
+
+/***** Static Articles ******/
+
+.about{
+	@extend %postFontSize;
+	@extend %tenColumns;
 }
 
 
@@ -151,6 +164,51 @@ comment{
 .commentContent{
 	height: 8rem;
 }
+
+.commentFormSubmit {
+	@extend %sixColumns;
+	@extend %postDetailFontSize;
+
+	display: block;
+	border: 0;
+	height: 4rem;
+	margin: 0 auto;
+	background-color: #B0B0B0;
+
+	&:hover{
+		background-color: #D8D8D8;
+	}
+}
+
+
+/***** search Page ******/
+
+.searchWrap{
+	@extend %postFontSize;
+	@extend %tenColumns;
+}
+
+.searchField{
+	@extend %postFontSize;
+	@extend %sixColumns;
+	display: block;
+	margin: 2rem auto;
+	height: 3rem;
+	padding: .25rem;
+}
+
+.archiveWrap{
+	@extend %clearfix;
+	@extend %sixteenColumns;
+}
+
+archive-list, tag-list {
+	display: block;
+	@extend %fiveColumns;
+	float: left;
+	margin-left: 16%;
+}
+
 
 
 /***** Footer ******/
