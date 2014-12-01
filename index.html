@@ -15,7 +15,7 @@
 
 		<div class="blog" ng-controller="BlogCtrl">
 			<div ng-show="blogDataLoaded">
-				<post class="postContainer" ng-repeat="post in blogData.posts" post="post"> 
+				<post class="postContainer" blog-data="blogData" ng-repeat="post in blogData.posts" post="post"> 
 				</post>
 			</div>
 		</div>
