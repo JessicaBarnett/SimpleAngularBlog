@@ -14,8 +14,10 @@
 		<header page-title path="" class="mainHeader"></header>
 
 		<div class="blog" ng-controller="BlogCtrl">
-			<post class="postContainer" ng-repeat="post in blogData.posts" post="post"> 
-			</post>
+			<div ng-show="blogDataLoaded">
+				<post class="postContainer" ng-repeat="post in blogData.posts" post="post"> 
+				</post>
+			</div>
 		</div>
 
 		<footer class="mainFooter">
