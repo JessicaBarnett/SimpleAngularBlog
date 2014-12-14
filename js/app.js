@@ -16,9 +16,32 @@ setURL();
 
 
 //Module
-var blogApp = angular.module('blogApp', []);
+var blogApp = angular.module('blogApp', ['ngRoute']);
 
+blogApp.config(function($routeProvider){
+	$routeProvider
+		.when('/', {
+			template: "<h1>{{model.html}}</h1>",
+			controller: "routeTestCtrl"
+		})
+		.when('/pizza', {
+			template: "<p>Yum!!</p>"
+		})
+		.when('/spinach', {
+			template: "meh..."
+		})
+		.otherwise({
+			template: "nothing here!!"
+		})
 
+})
+
+blogApp.controller("routeTestCtrl", function($scope){
+	$scope.model = {
+		message: "this is a test."
+	}
+	$scope.data = "This is some data."
+})
 
 //custom date fiter
 blogApp.filter('date', function($filter){
@@ -46,50 +69,28 @@ blogApp.filter('toUrl', function($filter){
 //main controller
 blogApp.controller("BlogCtrl", function($scope, $http){
 	$scope.blogDataLoaded = function(){
-		$http.get('blogData.json')
-			.success(function(data, status, headers, config) {
-				console.log("data from $http request: ")
-	            console.dir(data);
+		return $scope.blogData === null ? false : true;
+	};
+	$scope.blogData = null;
+	$scope.blogDataRequest = $http.get('blogData.json')
+		.success(function(data, status, headers, config) {
+			console.log("data from $http request: ")
+            console.dir(data);
 
-	            //converts all dates in the base json, both at the post and comment level,
-	            //from "mm/dd/yyyy" strings to date objects 
-	            data.forEach(function(post, index, array){
-		            	post.date = new Date(post.date);
-		            	post.comments.forEach(function(comment, index, array){
-		            		comment.date = new Date(comment.date);
-		            	});
-		           	});
+            //converts all dates in the base json, both at the post and comment level,
+            //from "mm/dd/yyyy" strings to date objects 
+            data.forEach(function(post, index, array){
+	            	post.date = new Date(post.date);
+	            	post.comments.forEach(function(comment, index, array){
+	            		comment.date = new Date(comment.date);
+	            	});
+	           	});
+            $scope.blogDataLoaded = true;
+            $scope.blogData = data;
 
-	            $scope.blogData = data;
-	            return true;
-
-	         }).error(function(data, status, headers, config) {
-	            console.log("blogDataRequest not working");
-	            return false; 
-	        });
-
-	     return false;
-	}
-	// $scope.blogDataRequest = $http.get('blogData.json')
-	// 	.success(function(data, status, headers, config) {
-	// 		console.log("data from $http request: ")
- //            console.dir(data);
-
- //            //converts all dates in the base json, both at the post and comment level,
- //            //from "mm/dd/yyyy" strings to date objects 
- //            data.forEach(function(post, index, array){
-	//             	post.date = new Date(post.date);
-	//             	post.comments.forEach(function(comment, index, array){
-	//             		comment.date = new Date(comment.date);
-	//             	});
-	//            	});
-
- //            $scope.blogData = data;
- //            $scope.blogDataLoaded = true;
-
- //         }).error(function(data, status, headers, config) {
- //            console.log("blogDataRequest not working");
- //        });
+         }).error(function(data, status, headers, config) {
+            console.log("blogDataRequest not working");
+        });
 });
 
 

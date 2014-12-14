@@ -9,9 +9,12 @@
 	</head>
 	<body ng-app="blogApp">
 		<script type="text/javascript" src="js/angular.js"></script>
+		<script type="text/javascript" src="js/angular-route.js"></script>
 		<script type="text/javascript" src="js/app.js"></script>
 
 		<header page-title path="" class="mainHeader"></header>
+
+		<ng-view></ng-view>
 
 		<div class="blog" ng-controller="BlogCtrl">
 			<div ng-show="blogDataLoaded">
