@@ -22,14 +22,17 @@ var blogApp = angular.module('blogApp', []);
 blogApp.factory('BlogData', function($http){
 	var blogData = {};
 
-	// blogData.externalPosts = $http('get', [{'url': 'blogData.json'}])
-	// 	.success(function(response) {
-	// 		console.log("totally worked!");
-	// 		console.dir(response.data);
- //        	return response.data;
- //    	}).failure(function(){
- //    		console.log("failed to load omg noooo!!");
- //    	});
+	// blogData.externalPosts = $http('get', [{'url': 'blogData.json'}]);
+	// blogData.externalPosts.success(function(response) {
+	// 	console.log("totally worked!");
+	// 	console.dir(response);
+ //    	// return response.data;
+	// });
+	// blogData.externalPosts.failure =function(response){
+	// 	console.log("failed to load omg noooo!!");
+	// 	console.log(response);
+	// };
+	// console.log(blogData.externalPosts);
 
 	blogData.posts = [{
 		"title": "It's Cheesey, but It'll Make You Feel Grate!",

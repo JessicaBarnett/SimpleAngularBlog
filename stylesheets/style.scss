@@ -207,8 +207,14 @@ archive-list, tag-list {
 	@extend %fiveColumns;
 	float: left;
 	margin-left: 16%;
-}
 
+	li:before{
+		content: "";
+		display: block;
+		border: 10px solid black;
+		border-left: none;
+	}
+}
 
 
 /***** Footer ******/
