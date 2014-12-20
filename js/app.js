@@ -13,10 +13,12 @@ function setURL() {
 
 setURL();
 
+//Module
 var blogApp = angular.module('blogApp', []);
 
+
 //service to load blog data
-blogApp.service('BlogDataModel', function($http){
+blogApp.service('BlogDataModel', function($http, $q){
 	var blogDataModel = this, //$this
 		URLS = {
 			FETCH: 'blogData.json'
@@ -24,8 +26,7 @@ blogApp.service('BlogDataModel', function($http){
 
 	blogDataModel.posts;
 	blogDataModel.convertDatesToObjects = function(posts){
-	    //converts all dates in the base json, both at the post and comment level,
-	    //from "mm/dd/yyyy" strings to date objects 
+	    //converts all dates in the base json, both at the post and comment level from "mm/dd/yyyy" strings to date objects 
 	    posts.forEach(function(post, index, array){
 	        	post.date = new Date(post.date);
 	        	post.comments.forEach(function(comment, index, array){
@@ -35,22 +36,17 @@ blogApp.service('BlogDataModel', function($http){
 	    return posts;
 	}
 
-	blogDataModel.init = function(){
-		var request = $http.get(URLS.FETCH)
-			.then(function(result){
-				blogDataModel.posts = blogDataModel.convertDatesToObjects(result.data);
-				console.log("success!!");
-				console.dir(blogDataModel.posts);
-			})
-			.error(console.log("no dice : ("));
+	blogDataModel.extractData = function(response){
+		blogDataModel.posts = blogDataModel.convertDatesToObjects(response.data);
+		console.log("in callback");
 	}
 
-	blogDataModel.getBlogData = function(){
-		if (!blogDataModel.posts)
-			blogDataModel.init();
-		return blogDataModel.posts;
+	blogDataModel.get = function(){
+		//$q sets it up so you're passing a promise to the caller, on which they can call .then, and do their rendering in
+		return (blogDataModel.posts) ? $q.when(blogDataModel.posts) : $http.get(URLS.FETCH).then(blogDataModel.extractData);
 	}
 });
+
 
 //custom date fiter
 blogApp.filter('date', function($filter){
@@ -77,6 +73,7 @@ blogApp.filter('toUrl', function($filter){
 
 //main controller
 blogApp.controller("BlogCtrl", function($scope, BlogDataModel){
+<<<<<<< HEAD
 
 	blogData = BlogDataModel.getBlogData();
 
@@ -96,8 +93,17 @@ blogApp.controller("BlogCtrl", function($scope, BlogDataModel){
  //         }).error(function(data, status, headers, config) {
  //            console.log("blogDataRequest not working");
  //        });
+=======
+	$scope.blogData = BlogDataModel.get().then(function(response){
+		return response.data;
+	});
+>>>>>>> Have  loading JSON in but the directives don't refresh once the data is available.
 });
 
+//*********  Note to self  **********//
+// As of today, 12/13/2014, I'm having problems getting the directives to refresh after the data has been loaded.
+// Using $q to pass my data as a promise now, so a .then can be used in the controller.  but directives still render too early.  
+// abandonning project for the moment.
 
 /******  Title Directive *******/
 
@@ -138,7 +144,11 @@ blogApp.directive("fullPost", function(){
 		restrict: "E",
 		templateUrl: directory.concat('/templates/post-page-template.html'),
 		scope: { //isolate scope
+<<<<<<< HEAD
 			post: "=",
+=======
+			post: "=", 
+>>>>>>> Have  loading JSON in but the directives don't refresh once the data is available.
 			blogData: "="
 		},
 		link: function(scope, element, attrs){
@@ -151,8 +161,15 @@ blogApp.directive("fullPost", function(){
 /******* Comments and Comment Form *******/
 
 
+<<<<<<< HEAD
 blogApp.controller("commentCtrl", function($scope, $http/* BlogData*/){
 	// $scope.blogData = BlogData;
+=======
+blogApp.controller("commentCtrl", function($scope, BlogDataModel){
+	$scope.blogData = BlogDataModel.get().then(function(response){
+		return response.data;
+	});
+>>>>>>> Have  loading JSON in but the directives don't refresh once the data is available.
 	$scope.isCommentInProgress = function(){
 		//returns true if there is an author, body, or image in the comment form (min info needed to display comment)
 		return ($scope.comment.author || $scope.comment.body || $scope.comment.image) ? true : false;
@@ -203,10 +220,16 @@ blogApp.directive("commentForm", function(){
 });
 
 
+<<<<<<< HEAD
 ///******* search page *******///
 
 
 /*//ArchiveItem and Tag formats
+=======
+/******* search page *******/
+/*
+	//ArchiveItem and Tag formats
+>>>>>>> Have  loading JSON in but the directives don't refresh once the data is available.
 	 
 	//var tagList = [
 	// {"name": "cheese", "posts" : []},
@@ -223,8 +246,10 @@ blogApp.directive("commentForm", function(){
 
 //****** Tag List ******//
 
-blogApp.controller("tagListCtrl", function($scope, BlogData){
-	$scope.blogData = BlogData;
+blogApp.controller("tagListCtrl", function($scope, BlogDataModel){
+	$scope.blogData = BlogDataModel.get().then(function(response){
+		return response.data;
+	});
 	$scope.getTagList = function(blogData){
 		var tagList = [];
 		blogData.posts.forEach(function(post, index, array){
@@ -265,8 +290,10 @@ blogApp.directive("tagList", function(){
 
 //****** Archive List ******//
 
-blogApp.controller("archiveListCtrl", function($scope, $filter, BlogData){
-	$scope.blogData = BlogData;
+blogApp.controller("archiveListCtrl", function($scope, $filter, BlogDataModel){
+	$scope.blogData = BlogDataModel.get().then(function(response){
+		return response.data;
+	});
 	$scope.getArchiveList = function(blogData){
 		var archiveList = []; 
 

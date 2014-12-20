@@ -17,10 +17,10 @@
 		<ng-view></ng-view>
 
 		<div class="blog" ng-controller="BlogCtrl">
-			<div ng-show="blogDataLoaded">
+			<!-- <div ng-show="blogDataLoaded"> -->
 				<post class="postContainer" blog-data="blogData" ng-repeat="post in blogData.posts" post="post"> 
 				</post>
-			</div>
+			<!-- </div> -->
 		</div>
 
 		<footer class="mainFooter">

@@ -1,0 +1,77 @@
+// <<<<<<< HEAD
+var blogApp = angular.module('blogApp', []);
+
+//service to load blog data
+blogApp.service('BlogDataModel', function($http){
+	var blogDataModel = this, //$this
+		URLS = {
+			FETCH: 'blogData.json'
+		};
+
+	blogDataModel.posts;
+	blogDataModel.convertDatesToObjects = function(posts){
+	    //converts all dates in the base json, both at the post and comment level,
+	    //from "mm/dd/yyyy" strings to date objects 
+	    posts.forEach(function(post, index, array){
+	        	post.date = new Date(post.date);
+	        	post.comments.forEach(function(comment, index, array){
+	        		comment.date = new Date(comment.date);
+	        	});
+	       	});
+	    return posts;
+	}
+
+	blogDataModel.init = function(){
+		var request = $http.get(URLS.FETCH)
+			.then(function(result){
+				blogDataModel.posts = blogDataModel.convertDatesToObjects(result.data);
+				console.log("success!!");
+				console.dir(blogDataModel.posts);
+			})
+			.error(console.log("no dice : ("));
+	}
+
+	blogDataModel.getBlogData = function(){
+		if (!blogDataModel.posts)
+			blogDataModel.init();
+		return blogDataModel.posts;
+// =======
+
+// <<<<<<< HEAD
+var blogApp = angular.module('blogApp', []);
+
+//service to load blog data
+blogApp.service('BlogDataModel', function($http){
+	var blogDataModel = this, //$this
+		URLS = {
+			FETCH: 'blogData.json'
+		};
+
+	blogDataModel.posts;
+	blogDataModel.convertDatesToObjects = function(posts){
+	    //converts all dates in the base json, both at the post and comment level,
+	    //from "mm/dd/yyyy" strings to date objects 
+	    posts.forEach(function(post, index, array){
+	        	post.date = new Date(post.date);
+	        	post.comments.forEach(function(comment, index, array){
+	        		comment.date = new Date(comment.date);
+	        	});
+	       	});
+	    return posts;
+	}
+
+	blogDataModel.init = function(){
+		var request = $http.get(URLS.FETCH)
+			.then(function(result){
+				blogDataModel.posts = blogDataModel.convertDatesToObjects(result.data);
+				console.log("success!!");
+				console.dir(blogDataModel.posts);
+			})
+			.error(console.log("no dice : ("));
+	}
+
+	blogDataModel.getBlogData = function(){
+		if (!blogDataModel.posts)
+			blogDataModel.init();
+		return blogDataModel.posts;
+// =======
