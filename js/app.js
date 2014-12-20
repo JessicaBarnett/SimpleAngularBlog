@@ -73,31 +73,9 @@ blogApp.filter('toUrl', function($filter){
 
 //main controller
 blogApp.controller("BlogCtrl", function($scope, BlogDataModel){
-<<<<<<< HEAD
-
-	blogData = BlogDataModel.getBlogData();
-
-	// $scope.blogDataLoaded = function(){
-	// 	return $scope.blogData === null ? false : true;
-	// };
-	// $scope.blogData = null;
-	// $scope.blogDataRequest = $http.get('blogData.json')
-	// 	.success(function(data, status, headers, config) {
-	// 		console.log("data from $http request: ")
- //            console.dir(data);
-
-
- //            $scope.blogDataLoaded = true;
- //            $scope.blogData = data;
-
- //         }).error(function(data, status, headers, config) {
- //            console.log("blogDataRequest not working");
- //        });
-=======
 	$scope.blogData = BlogDataModel.get().then(function(response){
 		return response.data;
 	});
->>>>>>> Have  loading JSON in but the directives don't refresh once the data is available.
 });
 
 //*********  Note to self  **********//
@@ -149,11 +127,7 @@ blogApp.directive("fullPost", function(){
 		restrict: "E",
 		templateUrl: directory.concat('/templates/post-page-template.html'),
 		scope: { //isolate scope
-<<<<<<< HEAD
 			post: "=",
-=======
-			post: "=", 
->>>>>>> Have  loading JSON in but the directives don't refresh once the data is available.
 			blogData: "="
 		},
 		link: function(scope, element, attrs){
@@ -165,16 +139,14 @@ blogApp.directive("fullPost", function(){
 
 /******* Comments and Comment Form *******/
 
+// blogApp.controller("commentCtrl", function($scope, $http/* BlogData*/){
+// 	// $scope.blogData = BlogData;
 
-<<<<<<< HEAD
-blogApp.controller("commentCtrl", function($scope, $http/* BlogData*/){
-	// $scope.blogData = BlogData;
-=======
 blogApp.controller("commentCtrl", function($scope, BlogDataModel){
 	$scope.blogData = BlogDataModel.get().then(function(response){
 		return response.data;
 	});
->>>>>>> Have  loading JSON in but the directives don't refresh once the data is available.
+
 	$scope.isCommentInProgress = function(){
 		//returns true if there is an author, body, or image in the comment form (min info needed to display comment)
 		return ($scope.comment.author || $scope.comment.body || $scope.comment.image) ? true : false;
@@ -225,17 +197,11 @@ blogApp.directive("commentForm", function(){
 });
 
 
-<<<<<<< HEAD
 ///******* search page *******///
 
 
-/*//ArchiveItem and Tag formats
-=======
-/******* search page *******/
-/*
-	//ArchiveItem and Tag formats
->>>>>>> Have  loading JSON in but the directives don't refresh once the data is available.
-	 
+/*	ArchiveItem and Tag formats
+
 	//var tagList = [
 	// {"name": "cheese", "posts" : []},
 	// {"name": "Provolone", "posts" : []},
