@@ -82,6 +82,11 @@ blogApp.controller("BlogCtrl", function($scope, BlogDataModel){
 // As of today, 12/13/2014, I'm having problems getting the directives to refresh after the data has been loaded.
 // Using $q to pass my data as a promise now, so a .then can be used in the controller.  but directives still render too early.  
 // abandonning project for the moment.
+// helpful videos: 
+// https://egghead.io/lessons/angularjs-http
+// https://egghead.io/lessons/angularjs-angularjs-architecture-using-http-to-load-json-data
+// https://egghead.io/lessons/angularjs-angularjs-architecture-control-your-promises-with-q
+
 
 //title directive
 blogApp.directive("pageTitle", function(){
