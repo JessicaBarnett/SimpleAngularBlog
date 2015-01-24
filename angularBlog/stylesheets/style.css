@@ -1,0 +1,151 @@
+/*all padding and borders added will cut into the width, not add to it.  
+margin will add to it*/
+* {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box; }
+
+.mainHeader:after, .postContainer:after, comment:after, .archiveWrap:after, .socialWrap:after {
+  content: "";
+  display: table;
+  clear: both; }
+
+/***** grid *****/
+.post.details, .fullpost.details {
+  width: 12.5%; }
+
+.comment.image {
+  width: 18.75%; }
+
+archive-list, tag-list {
+  width: 31.25%; }
+
+.commentFormSubmit, .searchField {
+  width: 37.5%; }
+
+.about, .searchWrap {
+  width: 62.5%; }
+
+.post.content, .fullpost.content {
+  width: 75%; }
+
+.blog, article, .searchWrap, .comments, .comment.content {
+  width: 81.25%; }
+
+body, .mainHeader, .mainFooter, comment, .commentForm, .archiveWrap {
+  width: 100%; }
+
+/***** Fonts *****/
+.mainTitle {
+  font-size: 3rem; }
+
+.about, .post, .fullpost, .searchWrap, .searchField, .mainNav li, .commentForm, .comments {
+  font-size: 1.8rem; }
+
+.post.details, .fullpost.details, .comment.details, .commentFormSubmit, footer {
+  font-size: 1.2rem; }
+
+.post .postTitle, .fullpost .postTitle {
+  font-size: 2.2rem; }
+
+/***** General ******/
+body {
+  background: url("../images/linedpaper.png");
+  height: 100%;
+  font-size: 100%; }
+
+.mainHeader, .mainFooter {
+  height: 10rem; }
+
+.blog, article, .searchWrap {
+  background-color: rgba(255, 255, 255, 0.4);
+  margin: 0 auto;
+  padding: .5rem 1.5rem; }
+
+p {
+  margin-top: 1rem; }
+
+/***** reusable classes *****/
+.byline {
+  font-style: italic;
+  margin: 1.5rem 0; }
+
+/***** Header ******/
+.mainLogo, .mainTitleAndNav {
+  float: left; }
+
+.mainLogo {
+  height: 7rem;
+  margin: 0rem 2rem 0 4rem; }
+
+.mainHeader {
+  padding-top: 3rem; }
+
+.mainNav li {
+  display: inline-block;
+  margin: 1rem 1rem 0 3rem; }
+
+/***** Static Articles ******/
+/***** Posts ******/
+.postContainer {
+  display: block;
+  margin: 2rem 0; }
+
+.post, .fullpost {
+  float: left;
+  margin: 2%; }
+  .post .tags li, .fullpost .tags li {
+    display: inline; }
+
+/***** Comments ******/
+.comments {
+  float: right; }
+
+comment, .comment.header, .comment.body {
+  display: block;
+  min-height: 5rem; }
+
+.comment.details {
+  padding: .5rem .5rem .5rem 0; }
+
+.comment.content, .comment.image {
+  float: left;
+  padding: .5rem; }
+
+/***** Comment Form *****/
+.commentForm {
+  height: 2.5rem;
+  margin: .5rem;
+  padding: .5rem; }
+
+.commentContent {
+  height: 8rem; }
+
+.commentFormSubmit {
+  display: block;
+  border: 0;
+  height: 4rem;
+  margin: 0 auto;
+  background-color: #B0B0B0; }
+  .commentFormSubmit:hover {
+    background-color: #D8D8D8; }
+
+/***** search Page ******/
+.searchField {
+  display: block;
+  margin: 2rem auto;
+  height: 3rem;
+  padding: .25rem; }
+
+archive-list, tag-list {
+  display: block;
+  float: left;
+  margin-left: 16%; }
+
+/***** Footer ******/
+footer {
+  margin-top: 2rem;
+  text-align: center; }
+
+.social {
+  margin: .5rem; }

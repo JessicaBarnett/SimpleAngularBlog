@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">  
+<html lang="en">
 	<head>
 		<title>A Simple Blog made with Angular.js</title>
 		<meta charset="UTF-8">
@@ -14,7 +14,7 @@
 		<header page-title path="" class="mainHeader"></header>
 
 		<div class="blog" ng-controller="BlogCtrl">
-			<post class="postContainer" ng-repeat="post in blogData.posts" blog-data="blogData" post="post"> 
+			<post class="postContainer" blog-data="blogData" ng-repeat="post in blogData.posts" post="post">
 			</post>
 		</div>
 

@@ -1,0 +1,19 @@
+/***** Fonts *****/
+
+$headingFontSize: 3rem;
+$subheadingFontSize: 2.2rem;
+$generalFontSize: 1.8rem;
+$smallDetailFontSize: 1.2rem;
+
+%pageTitleFontSize{
+	font-size: $headingFontSize;
+}
+%postFontSize, %navLinkFontSize, %formFontSize, %commentFontSize{
+	font-size: $generalFontSize;
+}
+%postDetailFontSize{
+	font-size: $smallDetailFontSize;
+}
+%postTitleFontSize{
+	font-size: $subheadingFontSize;
+}
