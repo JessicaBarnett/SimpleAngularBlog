@@ -17,35 +17,56 @@ setURL();
 var blogApp = angular.module('blogApp', []);
 
 
+//********** Blog Data Load ***********//
+
 //service to load blog data
 blogApp.service('BlogDataModel', function($http, $q){
-	var blogDataModel = this, //$this
-		URLS = {
-			FETCH: 'blogData.json'
-		};
 
-	blogDataModel.posts;
-	blogDataModel.convertDatesToObjects = function(posts){
-	    //converts all dates in the base json, both at the post and comment level from "mm/dd/yyyy" strings to date objects 
-	    posts.forEach(function(post, index, array){
-	        	post.date = new Date(post.date);
-	        	post.comments.forEach(function(comment, index, array){
-	        		comment.date = new Date(comment.date);
-	        	});
-	       	});
-	    return posts;
-	}
+	var blogDataModel = this, //makes this available to functions called as callbacks
 
-	blogDataModel.extractData = function(response){
-		blogDataModel.posts = blogDataModel.convertDatesToObjects(response.data);
-		console.log("in callback");
-	}
+			convertDatesToObjects = function(posts){
+			    //converts all dates in the base json, both at the post and comment level from "mm/dd/yyyy" strings to date objects
+			    posts.forEach(function(post, index, array){
+			        	post.date = new Date(post.date);
+			        	post.comments.forEach(function(comment, index, array){
+			        		comment.date = new Date(comment.date);
+			        	});
+			       	});
+			    return posts;
+			},
 
+			makeRequest = function() {
+				return $http({
+									method: "get",
+									url: "/angularBlog/data/blogData.json",
+								});
+			},
+
+			handleSuccess = function(response) {
+				console.log("success!");
+				console.log(response.data);
+				blogDataModel.posts = convertDatesToObjects(response.data);
+				return blogDataModel.posts;
+			},
+
+			handleError = function(response) {
+				return $q.reject(response.data.message)
+			};
+
+			blogDataModel.request = makeRequest();
+
+
+	//returns promise.  data must be extracted searately by each controller...?
+	//that's just how promises/async data work.
 	blogDataModel.get = function(){
-		//$q sets it up so you're passing a promise to the caller, on which they can call .then, and do their rendering in
-		return (blogDataModel.posts) ? $q.when(blogDataModel.posts) : $http.get(URLS.FETCH).then(blogDataModel.extractData);
-	}
+		console.log("bdm is currently: ", blogDataModel.posts);
+		return( blogDataModel.request.then(handleSuccess, blogDataModel) );
+	};
+
 });
+
+
+//********** Filters ***********//
 
 
 //custom date fiter
@@ -71,28 +92,28 @@ blogApp.filter('toUrl', function($filter){
 	};
 });
 
-//main controller
+
+//********** Main Controller ***********//
+
 blogApp.controller("BlogCtrl", function($scope, BlogDataModel){
-	$scope.blogData = BlogDataModel.get().then(function(response){
-		return response.data;
+	$scope.blogData = {};
+
+	var promise = BlogDataModel.get().then(function(response){
+		$scope.blogData.posts = response;
 	});
+
+	setTimeout(function(){
+		console.log($scope.blogData);
+		}, 1000);
 });
 
-//*********  Note to self  **********//
-// As of today, 12/13/2014, I'm having problems getting the directives to refresh after the data has been loaded.
-// Using $q to pass my data as a promise now, so a .then can be used in the controller.  but directives still render too early.  
-// abandonning project for the moment.
-// helpful videos: 
-// https://egghead.io/lessons/angularjs-http
-// https://egghead.io/lessons/angularjs-angularjs-architecture-using-http-to-load-json-data
-// https://egghead.io/lessons/angularjs-angularjs-architecture-control-your-promises-with-q
+//*********  Title Directive  **********//
 
-
-//title directive
 blogApp.directive("pageTitle", function(){
 	return {
 		restrict: "A",
-		templateUrl: directory.concat('/templates/pageTitle-template.html'),
+		templateUrl: '/angularBlog/templates/pageTitle-template.html',
+		// templateUrl: directory.concat('/templates/pageTitle-template.html'),
 		scope: {
 			path: "@"
 		},
@@ -110,7 +131,8 @@ blogApp.directive("pageTitle", function(){
 blogApp.directive("post", function(){
 	return {
 		restrict: "E",
-		templateUrl: directory.concat('/templates/post-snippet-template.html'),
+		templateUrl: '/angularBlog/templates/post-snippet-template.html',
+		// templateUrl: directory.concat('/templates/post-snippet-template.html'),
 		scope: { //isolate scope
 			post: "=",
 			blogData: "="
@@ -125,9 +147,10 @@ blogApp.directive("post", function(){
 blogApp.directive("fullPost", function(){
 	return {
 		restrict: "E",
-		templateUrl: directory.concat('/templates/post-page-template.html'),
+		templateUrl: '/angularBlog/templates/post-page-template.html',
+		// templateUrl: directory.concat('/templates/post-page-template.html'),
 		scope: { //isolate scope
-			post: "=", 
+			post: "=",
 			blogData: "="
 		},
 		link: function(scope, element, attrs){
@@ -142,13 +165,18 @@ blogApp.directive("fullPost", function(){
 
 
 blogApp.controller("commentCtrl", function($scope, BlogDataModel){
-	$scope.blogData = BlogDataModel.get().then(function(response){
-		return response.data;
+
+	$scope.blogData = {};
+
+	var promise = BlogDataModel.get().then(function(response){
+		$scope.blogData.posts = response;
 	});
+
 	$scope.isCommentInProgress = function(){
 		//returns true if there is an author, body, or image in the comment form
 		return ($scope.comment.author || $scope.comment.body || $scope.comment.image) ? true : false;
 	};
+
 	$scope.clearForm = function(){
 		return {
 			"author": "",
@@ -159,11 +187,12 @@ blogApp.controller("commentCtrl", function($scope, BlogDataModel){
 			"date": new Date
 		}
 	};
+
 	$scope.submitComment = function(post){
 		if ($scope.comment.image === ""){ //Add feature to check for a 404 event on image request?
 			$scope.comment.image = "../images/cheese_icon.svg";
 		}
-		
+
 		post.comments.push($scope.comment);
 		$scope.comment = $scope.clearForm();
 	};
@@ -175,7 +204,8 @@ blogApp.controller("commentCtrl", function($scope, BlogDataModel){
 blogApp.directive("comment", function(){
 	return {
 		restrict: "E",
-		templateUrl: directory.concat('/templates/comment-template.html'),
+		templateUrl: '/angularBlog/templates/comment-template.html',
+		// templateUrl: directory.concat('/templates/comment-template.html'),
 		scope: { //isolate scope
 			comment: "="
 		},
@@ -188,7 +218,8 @@ blogApp.directive("comment", function(){
 blogApp.directive("commentForm", function(){
 	return {
 		restrict: "E",
-		templateUrl: directory.concat('/templates/comment-form-template.html'),
+		templateUrl: '/angularBlog/templates/comment-form-template.html',
+		// templateUrl: directory.concat('/templates/comment-form-template.html'),
 		link: function(scope, element, attrs){
 
 		}
@@ -199,7 +230,7 @@ blogApp.directive("commentForm", function(){
 /******* search page *******/
 /*
 	//ArchiveItem and Tag formats
-	 
+
 	//var tagList = [
 	// {"name": "cheese", "posts" : []},
 	// {"name": "Provolone", "posts" : []},
@@ -216,9 +247,14 @@ blogApp.directive("commentForm", function(){
 //****** Tag List ******//
 
 blogApp.controller("tagListCtrl", function($scope, BlogDataModel){
-	$scope.blogData = BlogDataModel.get().then(function(response){
-		return response.data;
+
+	$scope.blogData = {};
+
+	var promise = BlogDataModel.get().then(function(response){
+		$scope.blogData.posts = response;
 	});
+
+
 	$scope.getTagList = function(blogData){
 		var tagList = [];
 		blogData.posts.forEach(function(post, index, array){
@@ -249,7 +285,8 @@ blogApp.controller("tagListCtrl", function($scope, BlogDataModel){
 blogApp.directive("tagList", function(){
 	return {
 		restrict: "E",
-		templateUrl: directory.concat('/templates/taglist-template.html')
+		templateUrl: '/angularBlog/templates/taglist-template.html'
+		// templateUrl: directory.concat('/templates/taglist-template.html')
 		// link: function(scope, element, attrs){
 		// 	console.dir(scope);
 		// }
@@ -259,11 +296,16 @@ blogApp.directive("tagList", function(){
 //****** Archive List ******//
 
 blogApp.controller("archiveListCtrl", function($scope, $filter, BlogDataModel){
-	$scope.blogData = BlogDataModel.get().then(function(response){
-		return response.data;
+
+	$scope.blogData = {};
+
+	var promise = BlogDataModel.get().then(function(response){
+		$scope.blogData.posts = response;
 	});
+	
+
 	$scope.getArchiveList = function(blogData){
-		var archiveList = []; 
+		var archiveList = [];
 
 		blogData.posts.forEach(function(post, index, array){
 			var currentPost = $scope.createArchiveItem(post);
@@ -300,7 +342,8 @@ blogApp.controller("archiveListCtrl", function($scope, $filter, BlogDataModel){
 blogApp.directive("archiveList", function(){
 	return {
 		restrict: "E",
-		templateUrl: directory.concat('/templates/archive-template.html'),
+		templateUrl: '/angularBlog/templates/archive-template.html',
+		// templateUrl: directory.concat('/templates/archive-template.html'),
 		link: function(scope, element, attrs){
 			console.dir(scope);
 		}

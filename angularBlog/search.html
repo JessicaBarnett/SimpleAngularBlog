@@ -2,39 +2,34 @@
 
 <html lang="en">
 <head>
-	<title>A Simple Blog made with JQuery and Handlebars</title>
+	<title>A Simple Blog made with Angular.js</title>
 	<meta charset="UTF-8">
 	<link rel="stylesheet" type="text/css" href="/stylesheets/reset.css">
 	<link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
 </head>
-<body>
-	<header class="mainHeader">
-		<img class="mainLogo" src="/images/logo.svg">
-		<section class="mainTitleAndNav">
-			<h1 class="mainTitle">A Simple JQuery Blog</h1>
-			<nav class="mainNav">
-				<ul>
-					<li><a href="index.html">Home</a></li>
-					<li><a href="about.html">About</a></li>
-					<li><a href="search.html">Search</a></li>
-				</ul>
-			</nav>
-		</section>
-	</header>
+<body ng-app="blogApp">
+<script type="text/javascript" src="js/angular.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
 
-	<section>
-		Search stuff will go here!
+<header page-title path="" class="mainHeader"></header>
+
+<div class="searchWrap">
+	<input class="searchField" type="text">
+	<div class="archiveWrap">
+		<tag-list></tag-list>
+		<archive-list></archive-list>
+	</div>
+</div>
+
+<footer class="mainFooter">
+	<p> This very simple blog was created by Jessica Barnett, with the intent to learn Angular.js </p>
+	<section class="socialWrap">
+		<a href="#"><img class="social" src="images/social/facebook.svg" alt="go to facebook"/></a>
+		<a href="#"><img class="social" src="images/social/twitter.svg" alt="go to twitter"/></a>
+		<a href="#"><img class="social" src="images/social/pinterest.svg" alt="go to pinterest"/></a>
+		<a href="#"><img class="social" src="images/social/vimeo.svg" alt="go to vimeo"/></a>
 	</section>
-
-	<footer class="mainFooter">
-		<p> This very simple blog was created by Jessica Barnett, with the intent to learn new tools. </p>
-		<section class="socialWrap">
-			<a href="#"><img class="social" src="/images/social/facebook.svg" alt="go to facebook"/></a>
-			<a href="#"><img class="social" src="/images/social/twitter.svg" alt="go to twitter"/></a>
-			<a href="#"><img class="social" src="/images/social/pinterest.svg" alt="go to pinterest"/></a>
-			<a href="#"><img class="social" src="/images/social/vimeo.svg" alt="go to vimeo"/></a>
-		</section>
-	</footer>
+</footer>
 
 </body>
 </html>

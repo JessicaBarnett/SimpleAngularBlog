@@ -1,11 +1,12 @@
 <section class="post details">
+	<!-- {{post}} -->
 	<time datetime="2014-10-30"> {{post.date | date}}</time>
 	<ul class="tags">
 		<li ng-repeat="tag in post.tags"><a href="#">{{tag}}, </a></li>
 	</ul>
 	<a href="blog_pages/{{post.title | toUrl}}.html#comments"> {{post.comments.length}} comments </a>
 </section>
-<section class="post content">	
+<section class="post content">
 	<h2 class="postTitle">{{post.title}}</h2>
 	<p class="byline">{{post.author}}</p>
 	<p>"{{post.body | limitTo:200}}..."</p>
