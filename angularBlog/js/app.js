@@ -252,8 +252,8 @@ blogApp.controller("tagListCtrl", function($scope, BlogDataModel){
 
 	var promise = BlogDataModel.get().then(function(response){
 		$scope.blogData.posts = response;
+		$scope.uniqueTags = $scope.getTagList($scope.blogData);
 	});
-
 
 	$scope.getTagList = function(blogData){
 		var tagList = [];
@@ -271,6 +271,7 @@ blogApp.controller("tagListCtrl", function($scope, BlogDataModel){
 		})
 		return tagList;
 	};
+
 	$scope.findIndexOfMatch = function(stringArray, compareString){
 		for (var i = 0; i < stringArray.length; i++){
 			if (stringArray[i].name.indexOf(compareString) != -1){
@@ -279,17 +280,17 @@ blogApp.controller("tagListCtrl", function($scope, BlogDataModel){
 		}
 		return null;
 	};
-	$scope.uniqueTags = $scope.getTagList($scope.blogData);
+
 });
 
 blogApp.directive("tagList", function(){
 	return {
 		restrict: "E",
-		templateUrl: '/angularBlog/templates/taglist-template.html'
+		templateUrl: '/angularBlog/templates/taglist-template.html',
 		// templateUrl: directory.concat('/templates/taglist-template.html')
-		// link: function(scope, element, attrs){
-		// 	console.dir(scope);
-		// }
+		link: function(scope, element, attrs){
+			console.dir(scope);
+		}
 	}
 });
 
@@ -301,8 +302,9 @@ blogApp.controller("archiveListCtrl", function($scope, $filter, BlogDataModel){
 
 	var promise = BlogDataModel.get().then(function(response){
 		$scope.blogData.posts = response;
+		$scope.archiveList = $scope.getArchiveList($scope.blogData);
 	});
-	
+
 
 	$scope.getArchiveList = function(blogData){
 		var archiveList = [];
@@ -320,12 +322,14 @@ blogApp.controller("archiveListCtrl", function($scope, $filter, BlogDataModel){
 
 		return archiveList;
 	};
+
 	$scope.createArchiveItem = function(post){
 		return {"month" : post.date.getMonth(),
 				"year" : post.date.getFullYear(),
 				"posts" : [post] //use posts.length to get number
 		}
 	};
+
 	$scope.getIndexOfMatch = function(archiveList, archiveItem){
 		if (archiveList.length > 0){
 			for (var i = 0; i < archiveList.length; i++){
@@ -336,7 +340,6 @@ blogApp.controller("archiveListCtrl", function($scope, $filter, BlogDataModel){
 		}
 		return null;
 	};
-	$scope.archiveList = $scope.getArchiveList($scope.blogData);
 });
 
 blogApp.directive("archiveList", function(){
